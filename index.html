@@ -47,15 +47,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        header h1 {
-            font-size: 1.7rem;
-            margin-bottom: 6px;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
+        header h1 { font-size: 1.7rem; margin-bottom: 6px; }
+        header p { font-size: 0.9rem; opacity: 0.9; }
 
         /* Nav Tabs */
         .nav-tabs {
@@ -239,7 +232,7 @@
         .modal-overlay.active { display: flex; }
         .modal-card {
             background: #fff;
-            width: 92%; max-width: 550px;
+            width: 92%; max-width: 580px;
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.25);
@@ -273,7 +266,8 @@
 
     <!-- Nav Tabs -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'tab-rundown')">🗺️ 行程總覽 (Rundown)</button>
+        <button class="tab-btn active" onclick="openTab(event, 'tab-rundown')">🗓️ 行程總覽 (Rundown)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-map')">🗺️ 景點地圖</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-traffic')">✈️ 航班與交通細節</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-accommodation')">🏠 住宿與成員 (Airbnb)</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-equipment')">🎒 登山裝備 CheckList</button>
@@ -298,8 +292,8 @@
         <div class="callout">
             💡 <strong>行前重點備忘：</strong><br>
             • 去程虎航 IT216 (00:10-04:25) / 回程酷航 TR867 (12:30-15:10)。<br>
-            • 8/27 上野採購、吃章魚燒蝦餅點心，午餐燒肉，下午至新宿購物並搭乘 <strong>15:40 高速巴士 1113 班次</strong> 前往河口湖。<br>
-            • 行程中帶有 <button class="modal-trigger-btn" style="padding:1px 5px;">📌 注意事項</button> 的項目可點擊查看詳細規範彈窗。
+            • <b>Day 2 06:30</b> 河口湖寄行李，<b>08:30 五合目起登</b>，沿途預留燒印/集御朱印時間，預計 15:30 抵達本八合目 Tomoekan。<br>
+            • <b>Day 4</b> 務必於 <b>09:30 前抵達成田機場 (NRT)</b> 辦理登機。
         </div>
 
         <!-- Day 1 -->
@@ -337,9 +331,9 @@
                                 <details class="rest-accordion">
                                     <summary>👇 點擊展開：早餐備選清單 (4間)</summary>
                                     <div class="rest-card"><b><a href="https://maps.app.goo.gl/LkiTkHCSHTq3ikfn9" target="_blank" class="map-link">元祖天玉そば かめや 御徒町店</a></b> (06:15-20:00) | 平價立食蕎麥麵，野菜天婦羅</div>
-                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/ekTKiDBTd9cEErBC6" target="_blank" class="map-link">ほんのり屋 上野店</a></b> (07:00-21:00) | JR站內手作飯糰，炙燒鹽鮭魚、博多明太子、高菜高湯飯等，點兩個熱飯糰配上一碗熱味噌湯與日式厚蛋燒</div>
-                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/WxnY3JkhsjvnSNDz5" target="_blank" class="map-link">珈琲王城</a></b> (08:00-19:00) | 昭和純喫茶，超厚切奶油吐司、紅豆吐司、肉醬義大利麵、冰淇淋汽水</div>
-                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/xjn59wz1qGTh2r1H8" target="_blank" class="map-link">EGG BABY CAFE</a></b> (08:00-19:00) | 招牌四角方塊蛋布丁（Egg Baby Pudding）、半熟溏心蛋三明治</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/ekTKiDBTd9cEErBC6" target="_blank" class="map-link">ほんのり屋 上野店</a></b> (07:00-21:00) | JR站內手作飯糰，熱味噌湯配厚蛋燒</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/WxnY3JkhsjvnSNDz5" target="_blank" class="map-link">珈琲王城</a></b> (08:00-19:00) | 昭和純喫茶，超厚切奶油吐司</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/xjn59wz1qGTh2r1H8" target="_blank" class="map-link">EGG BABY CAFE</a></b> (08:00-19:00) | 四角方塊蛋布丁、半熟溏心蛋三明治</div>
                                 </details>
                             </td>
                         </tr>
@@ -347,7 +341,6 @@
                             <td class="time">08:30-10:30</td>
                             <td><strong>御徒町採購逛街</strong></td>
                             <td>
-                                依次前往逛街採買：<br>
                                 1. <a href="https://www.google.com/maps/search/?api=1&query=驚安殿堂+唐吉訶德+御徒町店" target="_blank" class="map-link">唐吉訶德 御徒町店</a> (09:00-25:00)<br>
                                 2. <a href="https://www.google.com/maps/search/?api=1&query=二木菓子+第一營業所" target="_blank" class="map-link">二木菓子 第一營業所</a> (10:00-20:00)<br>
                                 3. <a href="https://www.google.com/maps/search/?api=1&query=mont-bell+御徒町店" target="_blank" class="map-link">mont-bell 御徒町店</a> (10:00-21:00)
@@ -356,38 +349,30 @@
                         <tr>
                             <td class="time">10:30</td>
                             <td><strong>點心小嚐</strong></td>
-                            <td><a href="https://www.google.com/maps/search/?api=1&query=名代秘伝の味+大阪じゅげむ+上野御徒町店" target="_blank" class="map-link">名代秘伝の味 大阪じゅげむ 上野御徒町店</a> (11:00–22:30) | 主打美味章魚燒蝦餅</td>
+                            <td><a href="https://www.google.com/maps/search/?api=1&query=名代秘伝の味+大阪じゅげむ+上野御徒町店" target="_blank" class="map-link">名代秘伝の味 大阪じゅげむ 上野御徒町店</a> (11:00–22:30) | 道地章魚燒蝦餅（たこせん）</td>
                         </tr>
                         <tr>
                             <td class="time">11:30</td>
                             <td><strong>午餐饗宴</strong></td>
                             <td>
-                                🌟 <strong>首選：<a href="https://www.google.com/maps/search/?api=1&query=燒肉+もとやま+本店" target="_blank" class="map-link">燒肉 もとやま 本店</a></strong> (11:30-23:00 | 45年老店，A5和牛與鹿兒島黑豬五花、黑豬里肌、特選鹽味豬頸肉)
+                                🌟 <strong>首選：<a href="https://www.google.com/maps/search/?api=1&query=燒肉+もとやま+本店" target="_blank" class="map-link">燒肉 もとやま 本店</a></strong> (11:30-23:00 | A5和牛與鹿兒島黑豬)
                                 <details class="rest-accordion">
                                     <summary>👇 點擊展開：午餐備選清單 (依食物類別排序)</summary>
-                                    
                                     <div class="rest-category-title">🥩 燒肉 / 肉類</div>
-                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=燒肉+太昌園+上野本店" target="_blank" class="map-link">燒肉 太昌園 上野本店</a></b> (11:00-22:00) | 昭和老字號，特選黑毛和牛與厚切豬五花搭配包肉生菜與特製韓式味噌醬，上等韓式烤豬五花（サムギョプサル）、特選鹽味豬頸肉、特製醃漬豬肋條</div>
-
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=燒肉+太昌園+上野本店" target="_blank" class="map-link">燒肉 太昌園 上野本店</a></b> (11:00-22:00) | 特選黑毛和牛與厚切豬五花</div>
                                     <div class="rest-category-title">🐷 炸豬排</div>
-                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=とんかつ山家+御徒町店" target="_blank" class="map-link">とんかつ山家 御徒町店</a></b> (11:00-14:45) | CP值之王，千日圓現炸厚切豬排，里肌炸豬排定食（ロースかつ定食）、腰內肉炸豬排定食</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=とんかつ山家+御徒町店" target="_blank" class="map-link">とんかつ山家 御徒町店</a></b> (11:00-14:45) | CP值之王，千日圓現炸厚切豬排</div>
                                     <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=井泉+本店" target="_blank" class="map-link">井泉 本店</a></b> (11:30–19:45) | 豬排三明治發源地，極致軟嫩腰內肉</div>
-
                                     <div class="rest-category-title">🍣 壽司 / 海鮮</div>
-                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=まぐろ問屋+三浦三崎港+上野店" target="_blank" class="map-link">三浦三崎港 上野店</a></b> (10:30-21:00) | 港口直送黑鮪魚，招牌堆高高鮪魚骨髓肉軍艦（山盛りまぐろ中落ち）、天然黑鮪魚大腹/中腹/赤身三貫組、爆盛海膽鮭魚卵軍艦</div>
-
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=まぐろ問屋+三浦三崎港+上野店" target="_blank" class="map-link">三浦三崎港 上野店</a></b> (10:30-21:00) | 港口直送黑鮪魚，爆盛軍艦壽司</div>
                                     <div class="rest-category-title">🍜 沾麵 / 拉麵</div>
                                     <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=あいだや+上野" target="_blank" class="map-link">Aidaya (あいだや)</a></b> (10:30-15:00) | 米其林團隊打造，雙醬沾麵與炙燒和牛</div>
-
                                     <div class="rest-category-title">🥢 蕎麥麵</div>
-                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=上野+藪蕎麥" target="_blank" class="map-link">上野 藪蕎麥</a></b> (11:30-21:00) | 百年老店，江戶風手打蕎麥麵與天婦羅，招牌蒸籠蕎麥麵（セイロ）、炸芝麻蝦天婦羅蕎麥麵</div>
-
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=上野+藪蕎麥" target="_blank" class="map-link">上野 藪蕎麥</a></b> (11:30-21:00) | 百年老店，江戶風手打蕎麥麵與天婦羅</div>
                                     <div class="rest-category-title">🍱 蒲燒鰻魚</div>
-                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=伊豆榮+本店" target="_blank" class="map-link">伊豆榮 本店</a></b> (11:00-21:00) | 300年老字號，無加糖秘傳醬汁蒲燒鰻，傳統蒲燒鰻魚飯（鰻重）、鰻魚白燒定食</div>
-
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=伊豆榮+本店" target="_blank" class="map-link">伊豆榮 本店</a></b> (11:00-21:00) | 300年老字號，無加糖秘傳醬汁蒲燒鰻</div>
                                     <div class="rest-category-title">🐔 雞肉 / 親子丼</div>
                                     <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=鳥つね+自然洞" target="_blank" class="map-link">鳥つね 自然洞</a></b> (11:30-13:30) | 米其林必比登推薦，地雞流心蛋親子丼</div>
-
                                     <div class="rest-category-title">🍺 居酒屋 / 串燒</div>
                                     <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=大統領+本店" target="_blank" class="map-link">大統領 本店</a></b> (11:30–14:00) | 高架橋下煙火氣，現烤醬香燒豚串燒</div>
                                 </details>
@@ -433,7 +418,7 @@
 
         <!-- Day 2 -->
         <div class="card">
-            <h3 style="color: var(--primary);">📍 Day 2：8/28 (五) 五合目開爬 ➔ 本八合目トモエ館（宿）</h3>
+            <h3 style="color: var(--primary);">📍 Day 2：8/28 (五) 寄行李 ➔ 5合目辦理入山 ➔ 起登 ➔ 本八合目トモエ館（宿）</h3>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -445,34 +430,48 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="time">08:30</td>
-                            <td>搭公車 ➔ 五合目</td>
-                            <td>從 <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站</a> 搭乘登山巴士至 <a href="https://maps.app.goo.gl/qi9kHQsVh9YmVBBt8" target="_blank" class="map-link">吉田線五合目</a></td>
-                        </tr>
-                        <tr>
-                            <td class="time">09:30</td>
-                            <td>抵達吉田線五合目</td>
+                            <td class="time">06:30</td>
+                            <td>起床 & 寄放行李</td>
                             <td>
-                                1. 掃碼領取<strong>通行木製標籤</strong><br>
-                                2. 參拜 <a href="https://www.google.com/maps/search/?api=1&query=冨士山小御嶽神社" target="_blank" class="map-link">冨士山小御嶽神社</a> 蓋御朱印<br>
-                                3. 購買金剛杖 / 燒印木板
-                                <button class="modal-trigger-btn" onclick="openModal('fujiPassTip')">📌 通行標籤領取叮嚀</button>
+                                辦理退房，前往河口湖站周邊辦理**過夜行李寄放**<br>
+                                <button class="modal-trigger-btn" onclick="openModal('kawaguchikoLuggage')">📌 查看河口湖過夜寄行李地點與地圖</button>
                             </td>
                         </tr>
                         <tr>
-                            <td class="time">10:30</td>
-                            <td>適應高度 & 準備出發</td>
-                            <td>停留約 1 小時適應高山氣壓、享用午餐</td>
+                            <td class="time">07:00-07:50</td>
+                            <td>搭巴士前往 5 合目</td>
+                            <td>從 <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站 6號月台</a> 搭乘 07:00 或 07:30 登山巴士前往五合目 (約 50 分鐘)</td>
                         </tr>
                         <tr>
-                            <td class="time">11:00</td>
-                            <td>吉田路線起步開爬</td>
-                            <td>保持勻速上升，沿途各山屋採集火印（300~500日圓/次）</td>
+                            <td class="time">08:00-08:30</td>
+                            <td>辦理入山 & 領取木牌</td>
+                            <td>
+                                抵達 <a href="https://maps.app.goo.gl/qi9kHQsVh9YmVBBt8" target="_blank" class="map-link">吉田線五合目</a>，先前往 <a href="https://www.google.com/maps/search/?api=1&query=富士山五合目+総合管理センター" target="_blank" class="map-link">富士山五合目 総合管理センター</a> (06:00–18:00) 辦理入山手續並出示 QR Code <b>領取實體通行木牌</b>！<br>
+                                參拜 <a href="https://www.google.com/maps/search/?api=1&query=冨士山小御嶽神社" target="_blank" class="map-link">冨士山小御嶽神社</a> 蓋御朱印與購買金剛杖。
+                            </td>
                         </tr>
                         <tr>
-                            <td class="time">16:00</td>
-                            <td>抵達 <a href="https://www.google.com/maps/search/?api=1&query=本八合目トモエ館" target="_blank" class="map-link">トモエ館</a></td>
-                            <td>標高 3,400m，辦理入住分派獨立個室</td>
+                            <td class="time">08:30</td>
+                            <td><strong>起登！(08:30 出發)</strong></td>
+                            <td>
+                                📱 <b>提醒：起登前記得開啟 <a href="https://zh-tw.hikingbook.net/hikes/2026-7-14-15%E5%AF%8C%E5%A3%AB%E5%B1%B1%E5%90%89%E7%94%B0%E7%B7%9A-23fae3f6" target="_blank" class="map-link">Hikingbook 離線地圖</a> 與 Strava 記錄！</b><br>
+                                預計配速時間表（算入每間山屋約 5–10 分鐘燒印/收集御朱印停留時間）：<br>
+                                • <b>08:30</b> 吉田線五合目起登 (2,305m)<br>
+                                • <b>09:10</b> 六合目安全指導所（停留 10 分鐘，蓋保全協力金章）<br>
+                                • <b>10:10</b> 七合目 花小屋 (2,700m，進入岩場區)<br>
+                                • <b>10:10-12:20</b> 七合目山屋巡禮（花小屋 ➔ 日之出館 ➔ トモエ館 ➔ 鎌岩館 ➔ 富士一館 ➔ 鳥居莊 ➔ 東洋館）<br>
+                                • <b>12:30</b> 八合目 太子館 (3,100m，大休息 20 分鐘吃行動糧)<br>
+                                • <b>12:50-15:30</b> 八合目山屋巡禮（蓬萊館 ➔ 白雲莊 ➔ 元祖室 ➔ 本八合目）<br>
+                                • <b>15:30</b> 抵達 本八合目 トモエ館 (3,400m)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">15:30/16:00</td>
+                            <td><strong>抵達 トモエ館 Check-in</strong></td>
+                            <td>
+                                標高 3,400m 辦理入住！<br>
+                                <button class="modal-trigger-btn" onclick="openModal('tomoekanReserve')">📌 查看 Tomoekan 預約紀錄與訂房信件</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="time">17:00</td>
@@ -481,8 +480,8 @@
                         </tr>
                         <tr>
                             <td class="time">19:00</td>
-                            <td>整理攻頂小包 & 入睡</td>
-                            <td>預先整理好攻頂罐、頭燈、保暖衣物早早入睡</td>
+                            <td>整理攻頂包 & 熄燈入睡</td>
+                            <td>整理攻頂罐、頭燈、保暖衣物，充沛睡眠</td>
                         </tr>
                     </tbody>
                 </table>
@@ -491,7 +490,7 @@
 
         <!-- Day 3 -->
         <div class="card">
-            <h3 style="color: var(--primary);">📍 Day 3：8/29 (六) 凌晨攻頂日出 ➔ 鉢巡/御朱印 ➔ 砂走下山 ➔ 回東京</h3>
+            <h3 style="color: var(--primary);">📍 Day 3：8/29 (六) 凌晨攻頂日出 ➔ 鉢巡 ➔ 下山逛街 ➔ 新宿中野住宿</h3>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -528,24 +527,47 @@
                             <td>參拜 <a href="https://www.google.com/maps/search/?api=1&query=富士山本宮浅間大社+奥宮" target="_blank" class="map-link">富士山本宮淺間大社 奧宮</a>，採集金印御朱印 / 蓋白 T-shirt</td>
                         </tr>
                         <tr>
-                            <td class="time">07:30</td>
-                            <td>久須志神社採印</td>
-                            <td>返回久須志神社採集御朱印</td>
-                        </tr>
-                        <tr>
-                            <td class="time">08:00</td>
+                            <td class="time">08:00-11:30</td>
                             <td>吉田下山道下山</td>
-                            <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> 走火山砂石坡（砂走）</td>
+                            <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> 走火山砂石坡（砂走）返抵五合目</td>
                         </tr>
                         <tr>
-                            <td class="time">11:30</td>
-                            <td>返抵五合目</td>
-                            <td>搭乘公車返回 <a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖車站</a></td>
+                            <td class="time">11:30-12:30</td>
+                            <td>五合目紀念品店採買</td>
+                            <td>
+                                逛 <a href="https://www.google.com/maps/search/?api=1&query=富士山五合目こみたけ売店" target="_blank" class="map-link">富士山五合目こみたけ売店</a> (08:30–17:00)<br>
+                                ⏱️ <b>預估逛街時間：約 45–60 分鐘</b>（搭配搭乘 12:30 巴士下山）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">13:30-16:30</td>
+                            <td><strong>河口湖站前採買 + 吃布丁</strong></td>
+                            <td>
+                                1. <b>記得領取寄放的行李！</b><br>
+                                2. 品嚐人氣甜點 <a href="https://www.google.com/maps/search/?api=1&query=Fujisan+Pudding" target="_blank" class="map-link">Fujisan Pudding (富士山ぷりん)</a> (10:00–17:00)<br>
+                                3. 採買站前富士山周邊伴手禮<br>
+                                ⏱️ <b>預估停留時間：約 2.5–3 小時（非常充裕）</b>
+                            </td>
                         </tr>
                         <tr>
                             <td class="time">17:41</td>
-                            <td>富士回遊 48 號（原定）</td>
-                            <td>返回新宿/東京市區，入住飯店大餐獎勵自己！</td>
+                            <td>搭電車返回新宿</td>
+                            <td>搭乘 JR 特急「富士回遊 48號」返京（19:27 抵達新宿）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">20:00</td>
+                            <td><strong>Check-in 新宿中野住宿</strong></td>
+                            <td>
+                                前往住宿點 <a href="https://www.google.com/maps/place/Hikario+1st,+2-ch%C5%8Dme-7-11+Yayoich%C5%8D,+Nakano+City,+Tokyo+164-0013%E6%97%A5%E6%9C%AC/@35.6925073,139.6738965,17z/data=!3m1!4b1!4m6!3m5!1s0x6018f2db8d5f79b3:0xaddd9df6ea2d49be!8m2!3d35.6925073!4d139.6764714!16s%2Fg%2F1z44bkqhg?entry=tts&g_ep=EgoyMDI2MDcyNi4wIPu8ASoASAFQAw%3D%3D&skid=ce4ad7a9-80a9-43ae-b664-c41a5c4618a8" target="_blank" class="map-link">Hikario 1st (中野區彌生町)</a> 辦理入住
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">20:30-22:00</td>
+                            <td><strong>夜間超市藥局採買</strong></td>
+                            <td>
+                                1. <a href="https://www.google.com/maps/search/?api=1&query=マルエツ+中野新橋店" target="_blank" class="map-link">マルエツ 中野新橋店 (Maruetsu)</a> (營業至 01:00)<br>
+                                2. <a href="https://www.google.com/maps/search/?api=1&query=ウエルシア中野新橋店" target="_blank" class="map-link">ウエルシア中野新橋店 (Welcia)</a> (營業至 24:00)
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -554,7 +576,7 @@
 
         <!-- Day 4 -->
         <div class="card">
-            <h3 style="color: var(--primary);">📍 Day 4：8/30 (日) 市區採買 ➔ 成田機場 ➔ 溫暖的家</h3>
+            <h3 style="color: var(--primary);">📍 Day 4：8/30 (日) 市區前往機場 ➔ 成田機場 ➔ 溫暖的家</h3>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -566,14 +588,17 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="time">08:30-10:00</td>
-                            <td>市區採買 / 伴手禮</td>
-                            <td>採買 PLUS 富士山橡皮擦、富士山吐司或田島硝子威士忌杯</td>
+                            <td class="time">07:00-09:30</td>
+                            <td>前往成田機場 (NRT)</td>
+                            <td>
+                                從新宿/日暮里搭乘 N'EX 或 Skyliner 前往成田機場<br>
+                                <span class="badge badge-important">⚠️ 務必於 09:30 前抵達成田機場辦理酷航登機！</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="time">10:30</td>
-                            <td>抵達成田機場 (NRT)</td>
-                            <td>辦理酷航登機與託運行李</td>
+                            <td class="time">09:30-12:30</td>
+                            <td>成田機場 (NRT) 辦理登機</td>
+                            <td>辦理酷航 TR867 託運行李、通關與逛機場免稅店</td>
                         </tr>
                         <tr>
                             <td class="time">12:30-15:10</td>
@@ -589,6 +614,23 @@
             </div>
         </div>
     </div>
+
+    <!-- ================= TAB: MAP ================= -->
+    <div id="tab-map" class="tab-content">
+        <h2 class="section-title">🗺️ 富士山 & 東京行程地點全覽</h2>
+        <div class="card" style="padding: 10px;">
+            <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 8px;">
+                <iframe 
+                    src="https://www.google.com/maps/d/u/0/embed?mid=1HsD3VX1IBEaVG_MFnEkaWMxokbXcf6Q&ehbc=2E312F" 
+                    width="100%" 
+                    height="100%" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>    
 
     <!-- ================= TAB 2: TRAFFIC ================= -->
     <div id="tab-traffic" class="tab-content">
@@ -620,41 +662,51 @@
 
         <!-- Segment 1 -->
         <div class="card">
-            <div class="traffic-title">1. 上野 ➔ 新宿 (8/27 約 12:45 出發)</div>
+            <div class="traffic-title">1. 新宿 ➔ 河口湖 (8/27 預定 15:40 發車 - 高速巴士 1113 班次)</div>
             <div class="traffic-box">
-                <b>主要方式：</b>JR 山手線（外環，往池袋・新宿方向）<br>
-                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+新宿站" target="_blank" class="map-link">JR 新宿站</a><br>
-                <b>行車時間：</b>約 25 分鐘 | <b>預估票價：</b>210 日圓 | <b>支付方式：</b>交通 IC 卡（Suica / PASMO）
-                <div class="traffic-alt"><b>🔄 前後 1 小時備案：</b>山手線每 3–4 分鐘一班隨到隨搭。備選：地下鐵銀座線至赤坂見附轉丸之內線至新宿。</div>
+                <b>主要方式：</b>中央高速巴士 1113 班次（新宿~富士五湖線）<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=バスタ新宿" target="_blank" class="map-link">バスタ新宿 4樓</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a><br>
+                <b>預定班次：</b>15:40 發車 ➔ 17:25 抵達 (約 1 小時 45 分鐘)<br>
+                <b>預估票價：</b>2,200 日圓 | <b>支付方式：</b>Highwaybus.com 線上刷卡 / 窗口現金<br>
+                <b>官方預約連結：</b><a href="https://www.highwaybus.com/" target="_blank" class="map-link">Highwaybus.com 官網</a>
+                <div class="traffic-alt">
+                    <b>🔄 前後 1 小時備案班次：</b><br>
+                    • 提早班次：14:40、15:10 發車高速巴士（票價 2,200 日圓）<br>
+                    • 延後班次：16:10、16:40 發車高速巴士（票價 2,200 日圓）
+                </div>
             </div>
         </div>
 
         <!-- Segment 2 -->
         <div class="card">
-            <div class="traffic-title">2. 新宿 ➔ 河口湖 (8/27 預定 15:40 發車 - 高速巴士 1113 班次)</div>
+            <div class="traffic-title">2. 河口湖站 ➔ 富士山吉田線五合目 (8/28 早晨去程 - 配合 08:30 起登)</div>
             <div class="traffic-box">
-                <b>主要方式：</b>中央高速巴士 1113 班次（新宿~富士五湖線）<br>
-                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=バスタ新宿" target="_blank" class="map-link">バスタ新宿 (新宿高速巴士總站) 4樓</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a><br>
-                <b>預定班次：</b>15:40 發車 ➔ 17:25 抵達 (約 1 小時 45 分鐘)<br>
-                <b>預估票價：</b>2,200 日圓 | <b>支付方式：</b>Highwaybus.com 線上刷卡 / 總站窗口現金與信用卡
+                <b>主要方式：</b>富士急行 富士スバルライン登山路線巴士<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站 6號月台</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=富士スバルライン五合目" target="_blank" class="map-link">富士山五合目</a><br>
+                <b>預定班次：</b><b>07:30 發車 ➔ 08:20 抵達 (最符合 08:30 起登的需求)</b><br>
+                <b>預估票價：</b>單程 1,780 日圓 / 來回套票 2,800 日圓 | <b>支付方式：</b>IC 卡、現金<br>
+                <b>時刻表連結：</b><a href="https://bus.fujikyu.co.jp/rosen/detail/id/14" target="_blank" class="map-link">富士急行巴士五合目線時刻表</a>
                 <div class="traffic-alt">
                     <b>🔄 前後 1 小時備案班次：</b><br>
-                    • 提早班次：14:40、15:10 發車高速巴士（票價 2,200 日圓）<br>
-                    • 延後班次：16:10、16:40 發車高速巴士（票價 2,200 日圓）<br>
-                    • <b>電車備案：</b>JR 中央線特急 至大月站，轉乘富士急行線至河口湖（全程約 1.5–2 小時，票價約 3,530 日圓）。
+                    • 提早班次：06:30、07:00 發車（可更早抵達五合目適應高度）<br>
+                    • 延後班次：08:00、08:30 發車（會稍微延後起登時間）
                 </div>
             </div>
         </div>
 
         <!-- Segment 3 -->
         <div class="card">
-            <div class="traffic-title">3. 河口湖站 ➔ 富士山吉田線五合目 (8/28 約 08:30 出發)</div>
+            <div class="traffic-title">3. 富士山五合目 ➔ 河口湖站 (8/29 下山回程)</div>
             <div class="traffic-box">
-                <b>主要方式：</b>富士急行 富士スバルライン登山路線巴士<br>
-                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站 6號公車月台</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=富士スバルライン五合目" target="_blank" class="map-link">富士山五合目</a><br>
-                <b>預定班次：</b>08:30 發車 ➔ 09:20 抵達 (約 50 分鐘)<br>
-                <b>預估票價：</b>單程 1,780 日圓 / 來回套票 2,800 日圓 | <b>支付方式：</b>IC 卡、現金
-                <div class="traffic-alt"><b>🔄 前後 1 小時備案：</b>07:30、08:00、09:00、09:30、10:00（每 30 分鐘一班）。</div>
+                <b>主要方式：</b>富士急行 富士スバルライン下山路線巴士<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=富士スバルライン五合目" target="_blank" class="map-link">富士山五合目巴士站</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a><br>
+                <b>預定班次：</b>12:30 發車 ➔ 13:20 抵達 (約 50 分鐘)<br>
+                <b>預估票價：</b>單程 1,780 日圓（或使用去程購買之來回套票）
+                <div class="traffic-alt">
+                    <b>🔄 前後 1 小時備案班次：</b><br>
+                    • 提早班次：11:30、12:00 發車<br>
+                    • 延後班次：13:00、13:30 發車（每 30 分鐘一班）
+                </div>
             </div>
         </div>
 
@@ -665,12 +717,32 @@
                 <b>主要方式：</b>JR 直達特急「富士回遊 48 號」(Fuji Excursion 48)<br>
                 <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+新宿站" target="_blank" class="map-link">JR 新宿站</a><br>
                 <b>預定班次：</b>17:41 發車 ➔ 19:27 抵達 (約 1 小時 46 分鐘)<br>
-                <b>預估票價：</b>約 4,130 日圓 | <b>支付方式：</b>JR Ekinet 線上刷卡 / 窗口現金與信用卡
+                <b>預估票價：</b>約 4,130 日圓 | <b>支付方式：</b>JR Ekinet 線上預約刷卡 / 窗口購票<br>
+                <b>官方預約連結：</b><a href="https://www.eki-net.com/" target="_blank" class="map-link">JR Ekinet 官網</a>
                 <div class="traffic-alt">
                     <b>🔄 前後 1 小時備案與轉乘計畫：</b><br>
-                    • 較早/較晚直達電車：富士回遊 44號 (15:03)、46號 (16:51)、50號 (18:44)<br>
-                    • <b>大月轉乘電車備案：</b>搭富士急行電車至大月站，轉乘 JR 中央線特急 回新宿。
+                    • 較早直達電車：富士回遊 44號 (15:03)、46號 (16:51)<br>
+                    • 較晚直達電車：富士回遊 50號 (18:44)<br>
+                    • <b>大月轉乘電車備案（最靈活隨到隨搭）：</b>搭富士急行電車至大月站，轉乘 JR 中央線特急 (Kaiji/Azusa) 回新宿。
                 </div>
+            </div>
+        </div>
+
+        <!-- Segment 5 -->
+        <div class="card">
+            <div class="traffic-title">5. 新宿 / 日暮里 ➔ 成田機場 (8/30 09:30 前抵達成田機場)</div>
+            <div class="traffic-box">
+                <b>主要方式 A：JR 成田特快 N'EX（新宿直達）</b><br>
+                <b>乘車站點：</b>JR 新宿站 ➔ 成田機場第二航廈<br>
+                <b>建議班次：</b>N'EX 11號 (新宿 07:39 發車 ➔ 成田 08:52 抵達，完美趕上 09:30)<br>
+                <b>預估票價：</b>約 3,250 日圓 | <b>連結：</b><a href="https://www.jreast.co.jp/multi/zh-CHT/nex/" target="_blank" class="map-link">N'EX 官方網站</a><br>
+                <b>🔄 N'EX 前後備案：</b>N'EX 7號 (新宿 07:03 發 ➔ 08:14 到) / N'EX 13號 (新宿 08:02 發 ➔ 09:16 到)<br>
+                <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+                <b>主要方式 B：京成 Skyliner（日暮里發車，速度最快）</b><br>
+                <b>乘車站點：</b>京成日暮里站 ➔ 成田機場第二航廈<br>
+                <b>建議班次：</b>Skyliner 15號 (日暮里 07:45 發車 ➔ 成田 08:23 抵達)<br>
+                <b>預估票價：</b>約 2,570 日圓 | <b>連結：</b><a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/" target="_blank" class="map-link">京成 Skyliner 官網</a><br>
+                <b>🔄 Skyliner 前後備案：</b>07:25 發 (08:03 到) / 08:05 發 (08:44 到，每 20 分鐘一班)
             </div>
         </div>
     </div>
@@ -696,6 +768,16 @@
                 安理、安理友、萱、鑫GM<br>
                 <b>🔗 Airbnb 預約連結：</b><br>
                 <a href="https://www.airbnb.com.tw/rooms/45456380?unique_share_id=d8f213eb-0d99-4557-9abe-69c50e5c4b33&viralityEntryPoint=1&s=76&source_impression_id=p3_1785163502_P3ZVA_JdU55qa9Sc" target="_blank" class="map-link">點擊開啟 Airbnb B 房型頁面</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">🏙️ 8/29 新宿中野住宿地點</h2>
+        <div class="card" style="border-left: 4px solid var(--gold);">
+            <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:8px;">🏢 Hikario 1st (中野區彌生町)</h3>
+            <div style="font-size:0.92rem; line-height:1.7;">
+                <b>📍 地址：</b>2-chōme-7-11 Yayoichō, Nakano City, Tokyo 164-0013<br>
+                <b>🔗 Google 地圖導航：</b><br>
+                <a href="https://www.google.com/maps/place/Hikario+1st,+2-ch%C5%8Dme-7-11+Yayoich%C5%8D,+Nakano+City,+Tokyo+164-0013%E6%97%A5%E6%9C%AC/@35.6925073,139.6738965,17z/data=!3m1!4b1!4m6!3m5!1s0x6018f2db8d5f79b3:0xaddd9df6ea2d49be!8m2!3d35.6925073!4d139.6764714!16s%2Fg%2F1z44bkqhg?entry=tts&g_ep=EgoyMDI2MDcyNi4wIPu8ASoASAFQAw%3D%3D&skid=ce4ad7a9-80a9-43ae-b664-c41a5c4618a8" target="_blank" class="map-link">點擊開啟 Hikario 1st Google 地圖</a>
             </div>
         </div>
     </div>
@@ -883,6 +965,37 @@
                 <p><b>🏠 Bnb B（共 6 人）</b></p>
                 <p style="color:#64748b; font-size:0.88rem;">成員：安理、安理友、萱、鑫GM</p>
                 <p><a href="https://www.airbnb.com.tw/rooms/45456380?unique_share_id=d8f213eb-0d99-4557-9abe-69c50e5c4b33&viralityEntryPoint=1&s=76&source_impression_id=p3_1785163502_P3ZVA_JdU55qa9Sc" target="_blank" class="map-link">開啟 Airbnb B 官方連結</a></p>
+            `
+        },
+        kawaguchikoLuggage: {
+            title: "🧳 河口湖站過夜寄放行李地點總覽",
+            content: `
+                <ol style="margin-left:18px; line-height:1.7;">
+                    <li><b>富士観光トラベル (行李寄物)</b><br>
+                        • <b>位置：</b>富士觀光大樓後面 (<a href="https://maps.app.goo.gl/3iH1x4Bq6X9" target="_blank" class="map-link">Google 地圖連結</a>)<br>
+                        • <b>價格：</b>800 日圓/天 (若要寄放 2 天，請支付 2 天費用)<br>
+                        • <b>置物櫃尺寸：</b>H80xW44xD60cm (16個) / H80xW52xD60cm (2個)<br>
+                        • <b>介紹連結：</b><a href="https://matcha-jp.com/tw/20968" target="_blank" class="map-link">MATCHA 介紹文章</a>
+                    </li>
+                    <li style="margin-top:8px;"><b>ゲストハウス富士乃蔵 (Guesthouse Fujinokura)</b><br>
+                        • 車站步行圈內提供行李寄放服務與計件寄物。
+                    </li>
+                    <li style="margin-top:8px;"><b>河口湖車站投幣式置物櫃 / 人工寄物處</b><br>
+                        • 車站內與出站右側設有大型投幣置物櫃，額滿時可至車站人工諮詢櫃檯詢問。
+                    </li>
+                </ol>
+            `
+        },
+        tomoekanReserve: {
+            title: "🛖 本八合目トモエ館 訂房詳細資訊",
+            content: `
+                <ul style="line-height:1.7;">
+                    <li><b>預約 ID：</b><code style="background:#f1f5f9; padding:2px 6px; border-radius:4px;">2607128753八ﾄﾓ2名</code></li>
+                    <li><b>代表姓名：</b>Cheng ChiaPei (テイ チャ ペイ)</li>
+                    <li><b>人數與地點：</b>2 人，8合目 Tomoekan 包廂 (個室)</li>
+                    <li><b>方案內容：</b>金曜・日曜・休日前プラン（２食付，含晚餐漢堡排咖哩飯與明日早餐）</li>
+                    <li><b>預約確認信連結：</b><a href="https://mail.google.com/mail/u/1/popout?ver=1czrxiih08qrv&q=%E3%83%88%E3%83%A2%E3%82%A8%E9%A4%A8&qs=true&qid=7E6B2525-E81D-4F10-A5A7-760CE6B8C8CC&search=query&sortop=1&silk=580569AE-25B8-463E-A869-9009A3E5FA89&th=%23thread-f:1870503025411906409&qt=%E3%83%88%E3%83%A2%E3%82%A8..%E9%A4%A8.&cvid=1" target="_blank" class="map-link">開啟 Gmail 預約信件</a></li>
+                </ul>
             `
         },
         fujiPassTip: {
