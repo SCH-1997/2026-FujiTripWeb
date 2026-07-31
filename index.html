@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗻 2026 富士山登頂 & 東京四天三夜行程計畫</title>
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #e74c3c;
+            --gold: #d4af37;
+            --bg: #f4f7f9;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.7rem;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            border: none;
+            background: #e2e8f0;
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 0.92rem;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover { background: #cbd5e1; }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* UI Elements */
+        .callout {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+        }
+
+        .callout-gold { background-color: #fffdf0; border-left: 4px solid var(--gold); }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 25px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        a.map-link {
+            color: var(--secondary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+        }
+        a.map-link:hover { color: var(--accent); }
+
+        /* Popup Icon Buttons */
+        .modal-trigger-btn {
+            background-color: #edf2f7;
+            color: var(--primary);
+            border: 1px solid #cbd5e1;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+            transition: background 0.2s;
+        }
+        .modal-trigger-btn:hover { background-color: #e2e8f0; }
+
+        /* Restaurant Accordion */
+        details.rest-accordion {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 10px;
+            padding: 10px 14px;
+        }
+        details.rest-accordion summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--secondary);
+            outline: none;
+            font-size: 0.92rem;
+        }
+
+        .rest-category-title {
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 2px;
+        }
+
+        .rest-card {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
+        }
+
+        /* Traffic Boxes */
+        .traffic-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--secondary);
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .traffic-title { font-weight: bold; color: var(--primary); font-size: 1rem; margin-bottom: 6px; }
+        .traffic-alt { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); color: #475569; font-size: 0.88rem; }
+
+        /* Flight Card */
+        .flight-card {
+            background: #f0f7ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Checklist Styles */
+        .checklist-category { font-size: 1.05rem; color: var(--secondary); margin: 16px 0 8px 0; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+        .checklist-category:first-child { margin-top: 0; }
+        .checklist-note { font-size: 0.85rem; color: #4a5568; background: #edf2f7; padding: 6px 10px; border-radius: 4px; margin-bottom: 10px; }
+        .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin-bottom: 12px; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; padding: 8px; border-radius: 6px; background-color: #fafbfc; border: 1px solid #f0f4f8; }
+        .checklist-item input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; cursor: pointer; accent-color: var(--secondary); flex-shrink: 0; }
+        .checklist-item label { cursor: pointer; font-size: 0.9rem; }
+        .checklist-item input:checked + label { text-decoration: line-through; color: var(--text-light); }
+
+        /* Stamp Guide */
+        .stamp-step { display: flex; gap: 12px; padding: 10px; border-left: 3px solid var(--secondary); background: #f8fafc; border-radius: 0 6px 6px 0; margin-bottom: 10px; font-size: 0.9rem; }
+        .stamp-station { font-weight: bold; color: var(--primary); min-width: 90px; flex-shrink: 0; }
+
+        /* Schedule Table */
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.9rem; }
+        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: #f8fafc; color: var(--primary); font-weight: 600; white-space: nowrap; }
+        td.time { font-weight: bold; color: var(--secondary); white-space: nowrap; width: 85px; }
+
+        .badge { display: inline-block; background: #edf2f7; color: #4a5568; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; margin-top: 4px; }
+        .badge-important { background: #fed7d7; color: #9b2c2c; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: #fff;
+            width: 92%; max-width: 550px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .modal-header h3 { color: var(--primary); font-size: 1.15rem; }
+        .modal-close { border: none; background: none; font-size: 1.5rem; cursor: pointer; color: #888; }
+        .modal-body { padding-top: 12px; font-size: 0.92rem; line-height: 1.6; color: #334155; }
+        .modal-body ul { margin-left: 20px; margin-top: 8px; }
+        .modal-body li { margin-bottom: 6px; }
+
+        @media (max-width: 600px) {
+            body { padding: 8px; }
+            header { padding: 18px 12px; }
+            header h1 { font-size: 1.3rem; }
+            .card { padding: 12px; }
+            .stamp-step { flex-direction: column; gap: 4px; }
+            th, td { padding: 8px 5px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🗻 2026 富士山登頂 & 東京四天三夜行程計畫</h1>
+        <p>日期：2026/08/27 (四) – 08/30 (日) | 地點：上野・新宿・河口湖・富士山吉田線</p>
+    </header>
+
+    <!-- Nav Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-rundown')">🗺️ 行程總覽 (Rundown)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-traffic')">✈️ 航班與交通細節</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-accommodation')">🏠 住宿與成員 (Airbnb)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-equipment')">🎒 登山裝備 CheckList</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-stamp')">🔥 燒印與御朱印攻略</button>
+    </div>
+
+    <!-- Modal Popup Box -->
+    <div id="customModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modalTitle">標題</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 1: RUNDOWN ================= -->
+    <div id="tab-rundown" class="tab-content active">
+        <div class="callout">
+            💡 <strong>行前重點備忘：</strong><br>
+            • 去程虎航 IT216 (00:10-04:25) / 回程酷航 TR867 (12:30-15:10)。<br>
+            • 8/27 上野採購、吃章魚燒蝦餅點心，午餐燒肉，下午至新宿購物並搭乘 <strong>15:40 高速巴士 1113 班次</strong> 前往河口湖。<br>
+            • 行程中帶有 <button class="modal-trigger-btn" style="padding:1px 5px;">📌 注意事項</button> 的項目可點擊查看詳細規範彈窗。
+        </div>
+
+        <!-- Day 1 -->
+        <div class="card">
+            <h3 style="color: var(--primary);">📍 Day 1：8/27 (四) 桃園出發 ➔ 上野採購美食 ➔ 新宿 ➔ 河口湖 Check-in</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>行程項目</th>
+                            <th>詳細說明 / 導航與注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time">00:10-04:25</td>
+                            <td><strong>去程航班：虎航 IT216</strong></td>
+                            <td>
+                                桃園 (TPE) ➔ 羽田 (HND) | 座位 1E, 1F (虎舒適)<br>
+                                線上報到 | 手提 10kg、託運 20kg<br>
+                                <button class="modal-trigger-btn" onclick="openModal('tiger_baggage')">📌 虎航行李與搭機規定彈窗</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">04:25-06:00</td>
+                            <td>羽田 ➔ <a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a></td>
+                            <td>入境後搭電車前往上野，將大件行李寄放至車站 Coin Locker</td>
+                        </tr>
+                        <tr>
+                            <td class="time">07:00</td>
+                            <td><strong>晨間早餐</strong></td>
+                            <td>
+                                🌟 <strong>首選：<a href="https://maps.app.goo.gl/CF2fp6oem7E31Y3B6" target="_blank" class="map-link">鴨to蔥</a></strong> (24小時 | 純鴨肉與水燉煮高湯清甜無負擔)
+                                <details class="rest-accordion">
+                                    <summary>👇 點擊展開：早餐備選清單 (4間)</summary>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/LkiTkHCSHTq3ikfn9" target="_blank" class="map-link">元祖天玉そば かめや 御徒町店</a></b> (06:15-20:00) | 平價立食蕎麥麵，野菜天婦羅</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/ekTKiDBTd9cEErBC6" target="_blank" class="map-link">ほんのり屋 上野店</a></b> (07:00-21:00) | JR站內手作飯糰，炙燒鹽鮭魚、博多明太子、高菜高湯飯等，點兩個熱飯糰配上一碗熱味噌湯與日式厚蛋燒</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/WxnY3JkhsjvnSNDz5" target="_blank" class="map-link">珈琲王城</a></b> (08:00-19:00) | 昭和純喫茶，超厚切奶油吐司、紅豆吐司、肉醬義大利麵、冰淇淋汽水</div>
+                                    <div class="rest-card"><b><a href="https://maps.app.goo.gl/xjn59wz1qGTh2r1H8" target="_blank" class="map-link">EGG BABY CAFE</a></b> (08:00-19:00) | 招牌四角方塊蛋布丁（Egg Baby Pudding）、半熟溏心蛋三明治</div>
+                                </details>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">08:30-10:30</td>
+                            <td><strong>御徒町採購逛街</strong></td>
+                            <td>
+                                依次前往逛街採買：<br>
+                                1. <a href="https://www.google.com/maps/search/?api=1&query=驚安殿堂+唐吉訶德+御徒町店" target="_blank" class="map-link">唐吉訶德 御徒町店</a> (09:00-25:00)<br>
+                                2. <a href="https://www.google.com/maps/search/?api=1&query=二木菓子+第一營業所" target="_blank" class="map-link">二木菓子 第一營業所</a> (10:00-20:00)<br>
+                                3. <a href="https://www.google.com/maps/search/?api=1&query=mont-bell+御徒町店" target="_blank" class="map-link">mont-bell 御徒町店</a> (10:00-21:00)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">10:30</td>
+                            <td><strong>點心小嚐</strong></td>
+                            <td><a href="https://www.google.com/maps/search/?api=1&query=名代秘伝の味+大阪じゅげむ+上野御徒町店" target="_blank" class="map-link">名代秘伝の味 大阪じゅげむ 上野御徒町店</a> (11:00–22:30) | 主打美味章魚燒蝦餅</td>
+                        </tr>
+                        <tr>
+                            <td class="time">11:30</td>
+                            <td><strong>午餐饗宴</strong></td>
+                            <td>
+                                🌟 <strong>首選：<a href="https://www.google.com/maps/search/?api=1&query=燒肉+もとやま+本店" target="_blank" class="map-link">燒肉 もとやま 本店</a></strong> (11:30-23:00 | 45年老店，A5和牛與鹿兒島黑豬五花、黑豬里肌、特選鹽味豬頸肉)
+                                <details class="rest-accordion">
+                                    <summary>👇 點擊展開：午餐備選清單 (依食物類別排序)</summary>
+                                    
+                                    <div class="rest-category-title">🥩 燒肉 / 肉類</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=燒肉+太昌園+上野本店" target="_blank" class="map-link">燒肉 太昌園 上野本店</a></b> (11:00-22:00) | 昭和老字號，特選黑毛和牛與厚切豬五花搭配包肉生菜與特製韓式味噌醬，上等韓式烤豬五花（サムギョプサル）、特選鹽味豬頸肉、特製醃漬豬肋條</div>
+
+                                    <div class="rest-category-title">🐷 炸豬排</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=とんかつ山家+御徒町店" target="_blank" class="map-link">とんかつ山家 御徒町店</a></b> (11:00-14:45) | CP值之王，千日圓現炸厚切豬排，里肌炸豬排定食（ロースかつ定食）、腰內肉炸豬排定食</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=井泉+本店" target="_blank" class="map-link">井泉 本店</a></b> (11:30–19:45) | 豬排三明治發源地，極致軟嫩腰內肉</div>
+
+                                    <div class="rest-category-title">🍣 壽司 / 海鮮</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=まぐろ問屋+三浦三崎港+上野店" target="_blank" class="map-link">三浦三崎港 上野店</a></b> (10:30-21:00) | 港口直送黑鮪魚，招牌堆高高鮪魚骨髓肉軍艦（山盛りまぐろ中落ち）、天然黑鮪魚大腹/中腹/赤身三貫組、爆盛海膽鮭魚卵軍艦</div>
+
+                                    <div class="rest-category-title">🍜 沾麵 / 拉麵</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=あいだや+上野" target="_blank" class="map-link">Aidaya (あいだや)</a></b> (10:30-15:00) | 米其林團隊打造，雙醬沾麵與炙燒和牛</div>
+
+                                    <div class="rest-category-title">🥢 蕎麥麵</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=上野+藪蕎麥" target="_blank" class="map-link">上野 藪蕎麥</a></b> (11:30-21:00) | 百年老店，江戶風手打蕎麥麵與天婦羅，招牌蒸籠蕎麥麵（セイロ）、炸芝麻蝦天婦羅蕎麥麵</div>
+
+                                    <div class="rest-category-title">🍱 蒲燒鰻魚</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=伊豆榮+本店" target="_blank" class="map-link">伊豆榮 本店</a></b> (11:00-21:00) | 300年老字號，無加糖秘傳醬汁蒲燒鰻，傳統蒲燒鰻魚飯（鰻重）、鰻魚白燒定食</div>
+
+                                    <div class="rest-category-title">🐔 雞肉 / 親子丼</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=鳥つね+自然洞" target="_blank" class="map-link">鳥つね 自然洞</a></b> (11:30-13:30) | 米其林必比登推薦，地雞流心蛋親子丼</div>
+
+                                    <div class="rest-category-title">🍺 居酒屋 / 串燒</div>
+                                    <div class="rest-card"><b><a href="https://www.google.com/maps/search/?api=1&query=大統領+本店" target="_blank" class="map-link">大統領 本店</a></b> (11:30–14:00) | 高架橋下煙火氣，現烤醬香燒豚串燒</div>
+                                </details>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">12:45</td>
+                            <td>前往新宿</td>
+                            <td>搭乘 JR 山手線（上野 ➔ 新宿，約 25 分鐘）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">13:30-15:00</td>
+                            <td><strong>新宿熱門購物</strong></td>
+                            <td>
+                                1. <a href="https://www.google.com/maps/search/?api=1&query=Alpen+TOKYO" target="_blank" class="map-link">Alpen TOKYO</a>（運動與戶外用品）<br>
+                                2. <a href="https://www.google.com/maps/search/?api=1&query=3COINS+plus+西武新宿ペペ店" target="_blank" class="map-link">3COINS+plus 西武新宿ペペ店</a>（日系平價雜貨）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">15:10</td>
+                            <td>前往巴士總站</td>
+                            <td>步行至 <a href="https://maps.app.goo.gl/NBXaD6w598tzraLH6" target="_blank" class="map-link">バスタ新宿 4樓</a>
+                                <button class="modal-trigger-btn" onclick="openModal('shinjukuBus')">📌 新宿巴士搭乘叮嚀</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">15:40</td>
+                            <td><strong>搭乘高速巴士 1113 班次</strong></td>
+                            <td>バスタ新宿 ➔ <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站</a>（17:25 抵達）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">18:00</td>
+                            <td><strong>河口湖 Check-in</strong></td>
+                            <td>
+                                分別前往 Bnb A (13人) 與 Bnb B (6人) 辦理入住<br>
+                                <button class="modal-trigger-btn" onclick="openModal('airbnbDetails')">📌 查看 8/27 入住分房名單與網址</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="card">
+            <h3 style="color: var(--primary);">📍 Day 2：8/28 (五) 五合目開爬 ➔ 本八合目トモエ館（宿）</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>行程項目</th>
+                            <th>詳細說明 / 導航與注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time">08:30</td>
+                            <td>搭公車 ➔ 五合目</td>
+                            <td>從 <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站</a> 搭乘登山巴士至 <a href="https://maps.app.goo.gl/qi9kHQsVh9YmVBBt8" target="_blank" class="map-link">吉田線五合目</a></td>
+                        </tr>
+                        <tr>
+                            <td class="time">09:30</td>
+                            <td>抵達吉田線五合目</td>
+                            <td>
+                                1. 掃碼領取<strong>通行木製標籤</strong><br>
+                                2. 參拜 <a href="https://www.google.com/maps/search/?api=1&query=冨士山小御嶽神社" target="_blank" class="map-link">冨士山小御嶽神社</a> 蓋御朱印<br>
+                                3. 購買金剛杖 / 燒印木板
+                                <button class="modal-trigger-btn" onclick="openModal('fujiPassTip')">📌 通行標籤領取叮嚀</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time">10:30</td>
+                            <td>適應高度 & 準備出發</td>
+                            <td>停留約 1 小時適應高山氣壓、享用午餐</td>
+                        </tr>
+                        <tr>
+                            <td class="time">11:00</td>
+                            <td>吉田路線起步開爬</td>
+                            <td>保持勻速上升，沿途各山屋採集火印（300~500日圓/次）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">16:00</td>
+                            <td>抵達 <a href="https://www.google.com/maps/search/?api=1&query=本八合目トモエ館" target="_blank" class="map-link">トモエ館</a></td>
+                            <td>標高 3,400m，辦理入住分派獨立個室</td>
+                        </tr>
+                        <tr>
+                            <td class="time">17:00</td>
+                            <td>晚餐 & 領取早餐</td>
+                            <td>晚餐：漢堡排咖哩飯；領取明日早餐（麵包組+水）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">19:00</td>
+                            <td>整理攻頂小包 & 入睡</td>
+                            <td>預先整理好攻頂罐、頭燈、保暖衣物早早入睡</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="card">
+            <h3 style="color: var(--primary);">📍 Day 3：8/29 (六) 凌晨攻頂日出 ➔ 鉢巡/御朱印 ➔ 砂走下山 ➔ 回東京</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>行程項目</th>
+                            <th>詳細說明 / 導航與注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time">01:30</td>
+                            <td>起床整裝</td>
+                            <td>穿戴保暖層、雨衣頭燈，吃早餐補充熱量</td>
+                        </tr>
+                        <tr>
+                            <td class="time">02:00</td>
+                            <td>攻頂戰出發</td>
+                            <td>隨夜爬人潮陡升攻頂</td>
+                        </tr>
+                        <tr>
+                            <td class="time">04:30</td>
+                            <td>登頂 <a href="https://www.google.com/maps/search/?api=1&query=久須志神社" target="_blank" class="map-link">久須志神社</a></td>
+                            <td><strong>迎接日出（御來光）🌄</strong>，享用熱濃湯/攻頂罐慶祝</td>
+                        </tr>
+                        <tr>
+                            <td class="time">05:30</td>
+                            <td>火山口巡禮（鉢巡）</td>
+                            <td>順時針繞火山口一圈（約 1.5 小時），途經金明水與銀明水</td>
+                        </tr>
+                        <tr>
+                            <td class="time">06:30</td>
+                            <td>頂上奧宮參拜</td>
+                            <td>參拜 <a href="https://www.google.com/maps/search/?api=1&query=富士山本宮浅間大社+奥宮" target="_blank" class="map-link">富士山本宮淺間大社 奧宮</a>，採集金印御朱印 / 蓋白 T-shirt</td>
+                        </tr>
+                        <tr>
+                            <td class="time">07:30</td>
+                            <td>久須志神社採印</td>
+                            <td>返回久須志神社採集御朱印</td>
+                        </tr>
+                        <tr>
+                            <td class="time">08:00</td>
+                            <td>吉田下山道下山</td>
+                            <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> 走火山砂石坡（砂走）</td>
+                        </tr>
+                        <tr>
+                            <td class="time">11:30</td>
+                            <td>返抵五合目</td>
+                            <td>搭乘公車返回 <a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖車站</a></td>
+                        </tr>
+                        <tr>
+                            <td class="time">17:41</td>
+                            <td>富士回遊 48 號（原定）</td>
+                            <td>返回新宿/東京市區，入住飯店大餐獎勵自己！</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="card">
+            <h3 style="color: var(--primary);">📍 Day 4：8/30 (日) 市區採買 ➔ 成田機場 ➔ 溫暖的家</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>行程項目</th>
+                            <th>詳細說明 / 導航與注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time">08:30-10:00</td>
+                            <td>市區採買 / 伴手禮</td>
+                            <td>採買 PLUS 富士山橡皮擦、富士山吐司或田島硝子威士忌杯</td>
+                        </tr>
+                        <tr>
+                            <td class="time">10:30</td>
+                            <td>抵達成田機場 (NRT)</td>
+                            <td>辦理酷航登機與託運行李</td>
+                        </tr>
+                        <tr>
+                            <td class="time">12:30-15:10</td>
+                            <td><strong>回程航班：酷航 TR867</strong></td>
+                            <td>
+                                成田 (NRT) ➔ 桃園 (TPE) | 座位 20B, 20C<br>
+                                線上報到 | 手提 10kg、託運 20kg<br>
+                                <button class="modal-trigger-btn" onclick="openModal('scoot_baggage')">📌 酷航行李與搭機規定彈窗</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 2: TRAFFIC ================= -->
+    <div id="tab-traffic" class="tab-content">
+        <h2 class="section-title">✈️ 航班資訊與規定</h2>
+        
+        <div class="flight-card">
+            <div style="font-weight:bold; color:var(--primary); font-size:1.05rem;">🛫 去程：台灣虎航 IT216 (TPE ➔ HND)</div>
+            <div style="margin-top:6px;">
+                • <b>時間：</b>2026/08/27 00:10 桃園 (TPE) ➔ 04:25 羽田 (HND)<br>
+                • <b>座位：</b>1E、1F（虎舒適） | <b>報到：</b>已線上報到<br>
+                • <b>行李額度：</b>手提 10kg、託運 20kg<br>
+                • <b>官方規定：</b><a href="https://www.tigerairtw.com/zh-tw/ready-to-go/baggage" target="_blank" class="map-link">虎航行李規定官方連結</a><br>
+                <button class="modal-trigger-btn" onclick="openModal('tiger_baggage')" style="margin-top:8px;">📌 點擊查看：虎航手提/鋰電池/液體/共享額度說明</button>
+            </div>
+        </div>
+
+        <div class="flight-card" style="background:#fefce8; border-color:#fef08a;">
+            <div style="font-weight:bold; color:#854d0e; font-size:1.05rem;">🛬 回程：酷航 Scoot TR867 (NRT ➔ TPE)</div>
+            <div style="margin-top:6px;">
+                • <b>時間：</b>2026/08/30 12:30 成田 (NRT) ➔ 15:10 桃園 (TPE)<br>
+                • <b>座位：</b>20B、20C | <b>報到：</b>已線上報到<br>
+                • <b>行李額度：</b>手提 10kg、託運 20kg<br>
+                • <b>官方規定：</b><a href="https://www.flyscoot.com/zh/plan-your-trip/checking-in/baggage" target="_blank" class="map-link">酷航行李規定官方連結</a><br>
+                <button class="modal-trigger-btn" onclick="openModal('scoot_baggage')" style="margin-top:8px;">📌 點擊查看：酷航手提尺寸/鋰電池/液體限制</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">🚌 地面交通全攻略 (前後 1 小時備案)</h2>
+
+        <!-- Segment 1 -->
+        <div class="card">
+            <div class="traffic-title">1. 上野 ➔ 新宿 (8/27 約 12:45 出發)</div>
+            <div class="traffic-box">
+                <b>主要方式：</b>JR 山手線（外環，往池袋・新宿方向）<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+新宿站" target="_blank" class="map-link">JR 新宿站</a><br>
+                <b>行車時間：</b>約 25 分鐘 | <b>預估票價：</b>210 日圓 | <b>支付方式：</b>交通 IC 卡（Suica / PASMO）
+                <div class="traffic-alt"><b>🔄 前後 1 小時備案：</b>山手線每 3–4 分鐘一班隨到隨搭。備選：地下鐵銀座線至赤坂見附轉丸之內線至新宿。</div>
+            </div>
+        </div>
+
+        <!-- Segment 2 -->
+        <div class="card">
+            <div class="traffic-title">2. 新宿 ➔ 河口湖 (8/27 預定 15:40 發車 - 高速巴士 1113 班次)</div>
+            <div class="traffic-box">
+                <b>主要方式：</b>中央高速巴士 1113 班次（新宿~富士五湖線）<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=バスタ新宿" target="_blank" class="map-link">バスタ新宿 (新宿高速巴士總站) 4樓</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a><br>
+                <b>預定班次：</b>15:40 發車 ➔ 17:25 抵達 (約 1 小時 45 分鐘)<br>
+                <b>預估票價：</b>2,200 日圓 | <b>支付方式：</b>Highwaybus.com 線上刷卡 / 總站窗口現金與信用卡
+                <div class="traffic-alt">
+                    <b>🔄 前後 1 小時備案班次：</b><br>
+                    • 提早班次：14:40、15:10 發車高速巴士（票價 2,200 日圓）<br>
+                    • 延後班次：16:10、16:40 發車高速巴士（票價 2,200 日圓）<br>
+                    • <b>電車備案：</b>JR 中央線特急 至大月站，轉乘富士急行線至河口湖（全程約 1.5–2 小時，票價約 3,530 日圓）。
+                </div>
+            </div>
+        </div>
+
+        <!-- Segment 3 -->
+        <div class="card">
+            <div class="traffic-title">3. 河口湖站 ➔ 富士山吉田線五合目 (8/28 約 08:30 出發)</div>
+            <div class="traffic-box">
+                <b>主要方式：</b>富士急行 富士スバルライン登山路線巴士<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站 6號公車月台</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=富士スバルライン五合目" target="_blank" class="map-link">富士山五合目</a><br>
+                <b>預定班次：</b>08:30 發車 ➔ 09:20 抵達 (約 50 分鐘)<br>
+                <b>預估票價：</b>單程 1,780 日圓 / 來回套票 2,800 日圓 | <b>支付方式：</b>IC 卡、現金
+                <div class="traffic-alt"><b>🔄 前後 1 小時備案：</b>07:30、08:00、09:00、09:30、10:00（每 30 分鐘一班）。</div>
+            </div>
+        </div>
+
+        <!-- Segment 4 -->
+        <div class="card">
+            <div class="traffic-title">4. 河口湖站 ➔ 新宿 (8/29 預定 17:41 發車)</div>
+            <div class="traffic-box">
+                <b>主要方式：</b>JR 直達特急「富士回遊 48 號」(Fuji Excursion 48)<br>
+                <b>乘車站點：</b><a href="https://www.google.com/maps/search/?api=1&query=河口湖駅" target="_blank" class="map-link">河口湖站</a> ➔ <b>到達站點：</b><a href="https://www.google.com/maps/search/?api=1&query=JR+新宿站" target="_blank" class="map-link">JR 新宿站</a><br>
+                <b>預定班次：</b>17:41 發車 ➔ 19:27 抵達 (約 1 小時 46 分鐘)<br>
+                <b>預估票價：</b>約 4,130 日圓 | <b>支付方式：</b>JR Ekinet 線上刷卡 / 窗口現金與信用卡
+                <div class="traffic-alt">
+                    <b>🔄 前後 1 小時備案與轉乘計畫：</b><br>
+                    • 較早/較晚直達電車：富士回遊 44號 (15:03)、46號 (16:51)、50號 (18:44)<br>
+                    • <b>大月轉乘電車備案：</b>搭富士急行電車至大月站，轉乘 JR 中央線特急 回新宿。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 3: ACCOMMODATION ================= -->
+    <div id="tab-accommodation" class="tab-content">
+        <h2 class="section-title">🏠 8/27 河口湖住宿與成員分房</h2>
+
+        <div class="card" style="border-left: 4px solid var(--primary);">
+            <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:8px;">🏡 住宿河口湖 Bnb A（共 13 人）</h3>
+            <div style="font-size:0.92rem; line-height:1.7;">
+                <b>👥 入住成員：</b><br>
+                游、游友、采薇、練、少麒、加珮、安淇、璞、香、金子、力文、宇婷GM<br>
+                <b>🔗 Airbnb 預約連結：</b><br>
+                <a href="https://www.airbnb.com.tw/rooms/882060607744613440?unique_share_id=0d109b4a-da0c-49fb-b0f6-8e2572c04f73&viralityEntryPoint=1&s=76" target="_blank" class="map-link">點擊開啟 Airbnb A 房型頁面</a>
+            </div>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--secondary);">
+            <h3 style="color:var(--secondary); font-size:1.1rem; margin-bottom:8px;">🏡 住宿河口湖 Bnb B（共 6 人）</h3>
+            <div style="font-size:0.92rem; line-height:1.7;">
+                <b>👥 入住成員：</b><br>
+                安理、安理友、萱、鑫GM<br>
+                <b>🔗 Airbnb 預約連結：</b><br>
+                <a href="https://www.airbnb.com.tw/rooms/45456380?unique_share_id=d8f213eb-0d99-4557-9abe-69c50e5c4b33&viralityEntryPoint=1&s=76&source_impression_id=p3_1785163502_P3ZVA_JdU55qa9Sc" target="_blank" class="map-link">點擊開啟 Airbnb B 房型頁面</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 4: EQUIPMENT ================= -->
+    <div id="tab-equipment" class="tab-content">
+        <h2 class="section-title">🎒 富士山登山裝備清單 (Checklist)</h2>
+        <div class="card">
+            <!-- 一、睡眠 -->
+            <div class="checklist-category">一、 睡眠（山屋住宿專用）</div>
+            <div class="checklist-note">註：本八合目トモエ館等山屋皆有提供羽絨被／睡袋，無需攜帶帳篷、睡墊或睡袋。</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_s1"><label for="eq_s1">耳塞（山屋個室隔音有限，避免鄰居鼾聲）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_s2"><label for="eq_s2">眼罩（避開山屋燈光與他人頭燈）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_s3"><label for="eq_s3">睡袋內襯 / 睡袋內套（個人衛生考量）</label></div>
+            </div>
+
+            <!-- 二、炊事 -->
+            <div class="checklist-category">二、 炊事（餐點與補給）</div>
+            <div class="checklist-note">註：富士山全線禁止野炊與使用露營用火/瓦斯爐，山屋已包含晚餐與早餐。</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_f1"><label for="eq_f1">紅糖 / 濃縮糖果（高海拔快速補血糖，頭痛反胃時含一顆）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_f2"><label for="eq_f2">高熱量行動糧（能量膠、巧克力、堅果、能量棒、軟糖、富士山 KitKat、御飯糰、甘栗）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_f3"><label for="eq_f3">高山電解質補給（鹽錠、BCAA，防止抽筋）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_f4"><label for="eq_f4">保溫瓶 (300~500ml)（五合目裝熱水，攻頂寒冷時喝）</label></div>
+            </div>
+
+            <!-- 三、飲水 -->
+            <div class="checklist-category">三、 飲水</div>
+            <div class="checklist-note">註：富士山無天然水源，所有水皆需自行攜帶或沿途向山屋購買。</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_w1"><label for="eq_w1">水壺 / 水袋（起步建議攜帶 1.5L ~ 2L）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_w2"><label for="eq_w2">百圓硬幣與千圓鈔票（山上 500ml 瓶裝水約 400~500 日圓）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_w3"><label for="eq_w3">運動飲料粉 / 發泡錠（加入水中補充電解質）</label></div>
+            </div>
+
+            <!-- 四、過夜 -->
+            <div class="checklist-category">四、 過夜（隨身個人衛生與電子設備）</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_o1"><label for="eq_o1">日幣現金：100 日圓硬幣與千圓鈔（預備 7,000 ~ 10,000 日圓）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o2"><label for="eq_o2">姐姐的御朱印本（登頂神社採集御朱印，夾鏈袋密封防水）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o3"><label for="eq_o3">寫明信片的筆</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o4"><label for="eq_o4">緊急小包（OK 繃、護理用品、高山症藥物/丹木斯）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o5"><label for="eq_o5">刁山小包（求生毯/保溫毯、哨子、打火機、備用高熱量糧）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o6"><label for="eq_o6">頭燈 + 備用電池/充電線（凌晨 01:30 攻頂必備）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o7"><label for="eq_o7">行動電源 + 手機充電線</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o8"><label for="eq_o8">濕紙巾 / 衛生紙</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o9"><label for="eq_o9">垃圾袋 / 夾鏈袋（2~3個，所有垃圾自行帶下山）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_o10"><label for="eq_o10">護照與山屋預約憑證</label></div>
+            </div>
+
+            <!-- 五、衣著 -->
+            <div class="checklist-category">五、 衣著（洋蔥式穿法，切勿穿著全棉材質）</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_c1"><label for="eq_c1">魔術頭巾 1~2 條（吉田線下山極重要防塵神器，拉高覆蓋口鼻防灰塵）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c2"><label for="eq_c2">底層（排汗）：長袖機能排汗衣（切勿穿純棉）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c3"><label for="eq_c3">中層（保暖）：輕量羽絨外套或刷毛外套（Fleece）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c4"><label for="eq_c4">外層（防風防水）：Gore-Tex 或同等級兩件式雨衣雨褲（嚴禁輕便雨衣）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c5"><label for="eq_c5">褲子：耐磨彈性登山長褲（切勿穿牛仔褲）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c6"><label for="eq_c6">保暖毛帽（凌晨攻頂極冷，頭部保暖預防高山症）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c7"><label for="eq_c7">遮陽帽 / 防曬帽（白天五合目至山屋段防曬）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c8"><label for="eq_c8">防風保暖手套（手套需防水防風，攀爬岩塊及防寒）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c9"><label for="eq_c9">登山襪 2 雙（羊毛襪或厚款機能襪）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_c10"><label for="eq_c10">備用乾爽衣物（抵達山屋後替換）</label></div>
+            </div>
+
+            <!-- 六、背負 -->
+            <div class="checklist-category">六、 背負</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_b1"><label for="eq_b1">登山背包（容量 25L ~ 35L）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_b2"><label for="eq_b2">背包防水套（Rain Cover）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_b3"><label for="eq_b3">防水整理袋 / 大夾鏈袋（衣物與電子產品包好防水）</label></div>
+            </div>
+
+            <!-- 七、行進 -->
+            <div class="checklist-category">七、 行進（徒步與防護）</div>
+            <div class="checklist-grid">
+                <div class="checklist-item"><input type="checkbox" id="eq_k1"><label for="eq_k1">金剛杖 / 燒印木板（五合目購買，沿途蓋火印紀念）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k2"><label for="eq_k2">中高筒登山鞋（保護腳踝，防碎石進入）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k3"><label for="eq_k3">防砂蓋 / 登山腳套（Gaiters）（吉田線下山必備！擋火山灰碎石）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k4"><label for="eq_k4">登山杖 2 支（減少膝蓋負擔，也可買長款金剛杖搭配）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k5"><label for="eq_k5">太陽眼鏡（高海拔防紫外線與擋砂）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k6"><label for="eq_k6">護膝（下山長坡防護）</label></div>
+                <div class="checklist-item"><input type="checkbox" id="eq_k7"><label for="eq_k7">高係數防曬乳 / 護唇膏</label></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 5: STAMP GUIDE ================= -->
+    <div id="tab-stamp" class="tab-content">
+        <h2 class="section-title">🔥 吉田線金剛杖燒印（火印）全攻略</h2>
+        <div class="card">
+            <div class="callout callout-gold">
+                <strong>✨ 燒印實用必看撇步：</strong><br>
+                • <strong>費用與零錢</strong>：每次燒印約 <strong>300 ~ 500 日圓</strong>。全收集約需 12~15 個印，請準備好充足的 100 日圓硬幣。<br>
+                • <strong>長杖 vs 短版燒印板</strong>：130cm 長金剛杖搭飛機<strong>須辦理長物件托運</strong>；若放行李箱可在五合目購買 30cm 短棒或木質燒印板。<br>
+                • <strong>燒印時間</strong>：晚間 19:00 後山屋熄燈休息，或凌晨攻頂時大部分不提供燒印，建議登頂當天下午向上爬時隨手蓋好。
+            </div>
+
+            <div class="stamp-step">
+                <div class="stamp-station"><a href="https://www.google.com/maps/search/?api=1&query=富士スバルライン五合目" target="_blank" class="map-link">五合目</a></div>
+                <div><b>冨士山小御嶽神社</b>（神社紀念燒印）/ <b>五合目紀念品店</b>（購買金剛杖或短木板）。</div>
+            </div>
+            <div class="stamp-step">
+                <div class="stamp-station">六合目</div>
+                <div><b>富士山安全指導所</b>（繳交保全協力金紀念章，約 300 日圓）。</div>
+            </div>
+            <div class="stamp-step">
+                <div class="stamp-station">七合目</div>
+                <div><b>岩場山屋群 (7~8 間)</b>：花小屋、日之出館、七合目トモエ館、鎌岩館、富士一館、鳥居莊、東洋館（每間均有專屬圖騰燒印）。</div>
+            </div>
+            <div class="stamp-step">
+                <div class="stamp-station">八合目</div>
+                <div><b>高海拔山屋群</b>：太子館、蓬萊館、白雲莊、元祖室、<a href="https://www.google.com/maps/search/?api=1&query=本八合目トモエ館" target="_blank" class="map-link">本八合目トモエ館</a>（3,400m標高印）、胸突江戸屋。</div>
+            </div>
+            <div class="stamp-step">
+                <div class="stamp-station">八合五勺</div>
+                <div><b>御來光館</b>（吉田線最高山屋，帶有「最高山屋 3,450m」字樣）。</div>
+            </div>
+            <div class="stamp-step">
+                <div class="stamp-station">山頂</div>
+                <div><a href="https://www.google.com/maps/search/?api=1&query=久須志神社" target="_blank" class="map-link">久須志神社</a>（登頂火印）/ <a href="https://www.google.com/maps/search/?api=1&query=富士山本宮浅間大社+奥宮" target="_blank" class="map-link">富士山本宮淺間大社 奧宮</a>（「富士山頂上」最高規格金印）。</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switching
+    function openTab(evt, tabId) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        const tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Modal System Data
+    const modalData = {
+        tiger_baggage: {
+            title: "🐯 虎航 IT216 行李與搭機規範",
+            content: `
+                <ul>
+                    <li><b>手提行李限制：</b>每人最多 1 件手提行李 + 1 件隨身包，總重不超過 <b>10kg</b>，尺寸小於 54x38x23cm。</li>
+                    <li><b>託運行李與共享額度：</b>購買 20kg 託運。<b>同行者若於同一預訂代碼（PNR）且同時辦理報到，可共享託運行李總重量！</b></li>
+                    <li><b>行動電源/鋰電池：</b><b>嚴禁託運</b>，必須隨身攜帶登機（標示需清晰）。</li>
+                    <li><b>液體與噴霧：</b>手提液體單瓶不超過 100ml，須裝入 1L 透明夾鏈袋；防曬或保濕噴霧託運單罐上限 500ml（總重不超過 2L）。</li>
+                </ul>
+            `
+        },
+        scoot_baggage: {
+            title: "🟡 酷航 TR867 行李與搭機規範",
+            content: `
+                <ul>
+                    <li><b>手提行李限制：</b>手提行李最多 2 件，總重量不超過 <b>10kg</b>，主行李尺寸 54x38x23cm 內。</li>
+                    <li><b>託運行李：</b>購買 20kg 託運額度。單件重量不得超過 32kg。</li>
+                    <li><b>行動電源與電池：</b>必須放於隨身手提行李，嚴禁放進託運行李中。</li>
+                    <li><b>液體規範：</b>隨身攜帶液體/膠狀每容器不得超過 100ml，且需放入透明密封袋內。</li>
+                </ul>
+            `
+        },
+        shinjukuBus: {
+            title: "🚌 新宿高速巴士總站搭乘提醒",
+            content: `
+                <ul>
+                    <li><b>地點：</b>位於「バスタ新宿 (Busta Shinjuku)」大樓 <b>4 樓</b>。</li>
+                    <li><b>班次：</b>預定搭乘 <b>15:40 發車之 1113 班次</b> 前往河口湖。</li>
+                    <li><b>時間安排：</b>請於 15:25 前抵達 4 樓候車大廳查看顯示看板對應之乘車月台（A/B/C/D 區）。</li>
+                    <li><b>車票：</b>請預先準備好手機上的電子車票或印出之 QR Code 憑證給司機驗票。</li>
+                </ul>
+            `
+        },
+        airbnbDetails: {
+            title: "🏡 8/27 河口湖住宿分房與成員名單",
+            content: `
+                <p><b>🏠 Bnb A（共 13 人）</b></p>
+                <p style="color:#64748b; font-size:0.88rem;">成員：游、游友、采薇、練、少麒、加珮、安淇、璞、香、金子、力文、宇婷GM</p>
+                <p><a href="https://www.airbnb.com.tw/rooms/882060607744613440?unique_share_id=0d109b4a-da0c-49fb-b0f6-8e2572c04f73&viralityEntryPoint=1&s=76" target="_blank" class="map-link">開啟 Airbnb A 官方連結</a></p>
+                <hr style="margin:10px 0; border:0; border-top:1px dashed #ccc;">
+                <p><b>🏠 Bnb B（共 6 人）</b></p>
+                <p style="color:#64748b; font-size:0.88rem;">成員：安理、安理友、萱、鑫GM</p>
+                <p><a href="https://www.airbnb.com.tw/rooms/45456380?unique_share_id=d8f213eb-0d99-4557-9abe-69c50e5c4b33&viralityEntryPoint=1&s=76&source_impression_id=p3_1785163502_P3ZVA_JdU55qa9Sc" target="_blank" class="map-link">開啟 Airbnb B 官方連結</a></p>
+            `
+        },
+        fujiPassTip: {
+            title: "🎫 富士山通行木製標籤領取叮嚀",
+            content: `
+                <ul>
+                    <li>請於五合目通行閘門出示手機上的 <b>山梨縣預約 QR Code</b> 給工作人員掃瞄。</li>
+                    <li>工作人員核對無誤後會發放實體<b>木製標籤</b>，請直接繫於登山背包上備查。</li>
+                    <li>現場領取即包含木製標籤，無需額外付費或現場排隊買現場票。</li>
+                </ul>
+            `
+        }
+    };
+
+    function openModal(key) {
+        if (modalData[key]) {
+            document.getElementById('modalTitle').innerText = modalData[key].title;
+            document.getElementById('modalBody').innerHTML = modalData[key].content;
+            document.getElementById('customModal').classList.add('active');
+        }
+    }
+
+    function closeModal(e) {
+        document.getElementById('customModal').classList.remove('active');
+    }
+
+    // Auto save & load Checkbox States to LocalStorage
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            const savedState = localStorage.getItem(cb.id);
+            if (savedState === 'true') {
+                cb.checked = true;
+            }
+            cb.addEventListener('change', (e) => {
+                localStorage.setItem(e.target.id, e.target.checked);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
