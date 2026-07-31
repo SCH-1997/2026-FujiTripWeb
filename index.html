@@ -45,10 +45,31 @@
             text-align: center;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         header h1 { font-size: 1.7rem; margin-bottom: 6px; }
         header p { font-size: 0.9rem; opacity: 0.9; }
+
+        /* Controls */
+        .header-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-reset:hover { background: rgba(255, 255, 255, 0.4); }
 
         /* Nav Tabs */
         .nav-tabs {
@@ -208,12 +229,28 @@
         .stamp-step { display: flex; gap: 12px; padding: 10px; border-left: 3px solid var(--secondary); background: #f8fafc; border-radius: 0 6px 6px 0; margin-bottom: 10px; font-size: 0.9rem; }
         .stamp-station { font-weight: bold; color: var(--primary); min-width: 90px; flex-shrink: 0; }
 
-        /* Schedule Table */
+        /* Schedule Table Drag & Edit Styles */
         .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.9rem; }
         th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); }
         th { background-color: #f8fafc; color: var(--primary); font-weight: 600; white-space: nowrap; }
         td.time { font-weight: bold; color: var(--secondary); white-space: nowrap; width: 85px; }
+
+        /* Editable & Draggable UX Enhancements */
+        tr[draggable="true"] { cursor: grab; transition: background 0.15s; }
+        tr[draggable="true"]:hover { background-color: #f1f5f9; }
+        tr.dragging { opacity: 0.4; background-color: #e2e8f0; border: 2px dashed #94a3b8; }
+        td[contenteditable="true"]:focus {
+            outline: 2px solid var(--secondary);
+            background-color: #f0f9ff;
+            border-radius: 4px;
+        }
+        .drag-handle {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            margin-right: 4px;
+            cursor: grab;
+        }
 
         .badge { display: inline-block; background: #edf2f7; color: #4a5568; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; margin-top: 4px; }
         .badge-important { background: #fed7d7; color: #9b2c2c; }
@@ -262,6 +299,9 @@
     <header>
         <h1>🗻 2026 富士山登頂 & 東京四天三夜行程計畫</h1>
         <p>日期：2026/08/27 (四) – 08/30 (日) | 地點：上野・新宿・河口湖・富士山吉田線</p>
+        <div class="header-actions">
+            <button class="btn-reset" onclick="resetAllTables()">↺ 還原初始行程</button>
+        </div>
     </header>
 
     <!-- Nav Tabs -->
@@ -269,7 +309,6 @@
         <button class="tab-btn active" onclick="openTab(event, 'tab-rundown')">🗓️ 行程總覽</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-map')">🗺️ 景點地圖</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-traffic')">✈️ 航班與交通細節</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-accommodation')">🏠 住宿與成員 (Airbnb)</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-equipment')">🎒 登山裝備 CheckList</button>
         <button class="tab-btn" onclick="openTab(event, 'tab-stamp')">🔥 燒印與御朱印攻略</button>
     </div>
@@ -290,9 +329,9 @@
     <!-- ================= TAB 1: RUNDOWN ================= -->
     <div id="tab-rundown" class="tab-content active">
         <div class="callout">
-            💡 <strong>行前重點備忘：</strong><br>
+            💡 <strong>行前重點備忘（表格內文字可直接點擊編輯、整行可按住拖曳排序）：</strong><br>
             • 去程虎航 IT216 (00:10-04:25) / 回程酷航 TR867 (12:30-15:10)。<br>
-            • <b>Day 2 06:30</b> 河口湖寄行李，<b>08:30 五合目起登</b>，沿途預留燒印/集御朱印時間，預計 15:30 抵達本八合目 Tomoekan。<br>
+            • <b>Day 2 06:30</b> 河口湖寄行李，<b>08:30 五合目起登</b>，預計 15:30 抵達本八合目 Tomoekan。<br>
             • <b>Day 3 01:00</b> 起床整裝，01:30 提前啟動攻頂戰，下山後時間更充裕！<br>
             • <b>Day 4</b> 務必於 <b>09:30 前抵達成田機場 (NRT)</b> 辦理登機。
         </div>
@@ -301,32 +340,35 @@
         <div class="card">
             <h3 style="color: var(--primary);">📍 Day 1：8/27 (四) 桃園出發 ➔ 上野早/午餐血拚 ➔ 新宿 ➔ 河口湖 Check-in</h3>
             <div class="table-wrapper">
-                <table>
+                <table id="table-day1">
                     <thead>
                         <tr>
+                            <th style="width: 20px;"></th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="time">00:10-04:25</td>
-                            <td><strong>去程航班：虎航 IT216</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">00:10-04:25</td>
+                            <td contenteditable="true"><strong>去程航班：虎航 IT216</strong></td>
                             <td>
-                                桃園 (TPE) ➔ 羽田 (HND) | 座位 1E, 1F (虎舒適)<br>
-                                線上報到 | 手提 10kg、託運 20kg<br>
+                                <span contenteditable="true">桃園 (TPE) ➔ 羽田 (HND) | 座位 1E, 1F (虎舒適)<br>線上報到 | 手提 10kg、託運 20kg</span><br>
                                 <button class="modal-trigger-btn" onclick="openModal('tiger_baggage')">📌 虎航行李與搭機規定彈窗</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">04:25-06:00</td>
-                            <td>羽田 ➔ <a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a></td>
-                            <td>入境後搭電車前往上野，將大件行李寄放至車站 Coin Locker</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">04:25-06:00</td>
+                            <td contenteditable="true">羽田 ➔ <a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a></td>
+                            <td contenteditable="true">入境後搭電車前往上野，將大件行李寄放至車站 Coin Locker</td>
                         </tr>
-                        <tr>
-                            <td class="time">07:00</td>
-                            <td><strong>晨間早餐</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">07:00</td>
+                            <td contenteditable="true"><strong>晨間早餐</strong></td>
                             <td>
                                 🌟 <strong>首選：<a href="https://maps.app.goo.gl/CF2fp6oem7E31Y3B6" target="_blank" class="map-link">鴨to蔥</a></strong> (24小時 | 純鴨肉與水燉煮高湯清甜無負擔)
                                 <details class="rest-accordion">
@@ -338,23 +380,26 @@
                                 </details>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">08:30-10:30</td>
-                            <td><strong>御徒町採購逛街</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">08:30-10:30</td>
+                            <td contenteditable="true"><strong>御徒町採購逛街</strong></td>
                             <td>
                                 1. <a href="https://www.google.com/maps/search/?api=1&query=驚安殿堂+唐吉訶德+御徒町店" target="_blank" class="map-link">唐吉訶德 御徒町店</a> (09:00-25:00)<br>
                                 2. <a href="https://www.google.com/maps/search/?api=1&query=二木菓子+第一營業所" target="_blank" class="map-link">二木菓子 第一營業所</a> (10:00-20:00)<br>
                                 3. <a href="https://www.google.com/maps/search/?api=1&query=mont-bell+御徒町店" target="_blank" class="map-link">mont-bell 御徒町店</a> (10:00-21:00)
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">10:30</td>
-                            <td><strong>點心小嚐</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">10:30</td>
+                            <td contenteditable="true"><strong>點心小嚐</strong></td>
                             <td><a href="https://www.google.com/maps/search/?api=1&query=名代秘伝の味+大阪じゅげむ+上野御徒町店" target="_blank" class="map-link">名代秘伝の味 大阪じゅげむ 上野御徒町店</a> (11:00–22:30) | 道地章魚燒蝦餅（たこせん）</td>
                         </tr>
-                        <tr>
-                            <td class="time">11:30</td>
-                            <td><strong>午餐饗宴</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">11:30</td>
+                            <td contenteditable="true"><strong>午餐饗宴</strong></td>
                             <td>
                                 🌟 <strong>首選：<a href="https://www.google.com/maps/search/?api=1&query=燒肉+もとやま+本店" target="_blank" class="map-link">燒肉 もとやま 本店</a></strong> (11:30-23:00 | A5和牛與鹿兒島黑豬)
                                 <details class="rest-accordion">
@@ -379,39 +424,45 @@
                                 </details>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">12:45</td>
-                            <td>前往新宿</td>
-                            <td>搭乘 JR 山手線（上野 ➔ 新宿，約 25 分鐘）</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">12:45</td>
+                            <td contenteditable="true">前往新宿</td>
+                            <td contenteditable="true">搭乘 JR 山手線（上野 ➔ 新宿，約 25 分鐘）</td>
                         </tr>
-                        <tr>
-                            <td class="time">13:30-14:40</td>
-                            <td><strong>新宿熱門購物</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">13:30-14:40</td>
+                            <td contenteditable="true"><strong>新宿熱門購物</strong></td>
                             <td>
                                 1. <a href="https://www.google.com/maps/search/?api=1&query=Alpen+TOKYO" target="_blank" class="map-link">Alpen TOKYO</a>（運動與戶外用品）<br>
                                 2. <a href="https://www.google.com/maps/search/?api=1&query=3COINS+plus+西武新宿ペペ店" target="_blank" class="map-link">3COINS+plus 西武新宿ペペ店</a>（日系平價雜貨）
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">14:45</td>
-                            <td>前往巴士總站</td>
-                            <td>步行至 <a href="https://maps.app.goo.gl/NBXaD6w598tzraLH6" target="_blank" class="map-link">バスタ新宿 4樓</a>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">14:45</td>
+                            <td contenteditable="true">前往巴士總站</td>
+                            <td>
+                                <span contenteditable="true">步行至 </span><a href="https://maps.app.goo.gl/NBXaD6w598tzraLH6" target="_blank" class="map-link">バスタ新宿 4樓</a><br>
                                 <button class="modal-trigger-btn" onclick="openModal('shinjukuBus')">📌 新宿巴士搭乘叮嚀</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">15:15</td>
-                            <td><strong>搭乘高速巴士 (15:15 發車)</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">15:15</td>
+                            <td contenteditable="true"><strong>搭乘高速巴士 (15:15 發車)</strong></td>
                             <td>
-                                バスタ新宿 ➔ <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站</a>（預計 17:00 抵達）<br>
+                                <span contenteditable="true">バスタ新宿 ➔ </span><a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站</a>（預計 17:00 抵達）<br>
                                 🔗 <a href="https://www.highwaybus.com/gp/inbound/inbTimeTbl?lineId=110&upDownKbn=2&action=update&year=2026&month=08&day=27&fromTime=14&toTime=24#direction" target="_blank" class="map-link">點擊查看 8/27 新宿➔河口湖 高速巴士時刻表</a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">18:00</td>
-                            <td><strong>河口湖 Check-in</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">18:00</td>
+                            <td contenteditable="true"><strong>河口湖 Check-in</strong></td>
                             <td>
-                                分別前往 Bnb A (13人) 與 Bnb B (6人) 辦理入住<br>
+                                <span contenteditable="true">分別前往 Bnb A (13人) 與 Bnb B (6人) 辦理入住</span><br>
                                 <button class="modal-trigger-btn" onclick="openModal('airbnbDetails')">📌 查看 8/27 入住分房名單與網址</button>
                             </td>
                         </tr>
@@ -424,68 +475,76 @@
         <div class="card">
             <h3 style="color: var(--primary);">📍 Day 2：8/28 (五) 寄行李 ➔ 5合目辦理入山 ➔ 起登 ➔ 本八合目トモエ館（宿）</h3>
             <div class="table-wrapper">
-                <table>
+                <table id="table-day2">
                     <thead>
                         <tr>
+                            <th style="width: 20px;"></th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="time">06:30</td>
-                            <td>起床 & 寄放行李</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">06:30</td>
+                            <td contenteditable="true">起床 & 寄放行李</td>
                             <td>
-                                辦理退房，前往河口湖站周邊辦理**過夜行李寄放**<br>
+                                <span contenteditable="true">辦理退房，前往河口湖站周邊辦理**過夜行李寄放**</span><br>
                                 <button class="modal-trigger-btn" onclick="openModal('kawaguchikoLuggage')">📌 查看河口湖過夜寄行李地點與地圖</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">07:00-07:50</td>
-                            <td>搭巴士前往 5 合目</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">07:00-07:50</td>
+                            <td contenteditable="true">搭巴士前往 5 合目</td>
                             <td>從 <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站 6號月台</a> 搭乘 07:00 或 07:30 登山巴士前往五合目 (約 50 分鐘)</td>
                         </tr>
-                        <tr>
-                            <td class="time">08:00-08:30</td>
-                            <td>辦理入山 & 領取木牌</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">08:00-08:30</td>
+                            <td contenteditable="true">辦理入山 & 領取木牌</td>
                             <td>
                                 抵達 <a href="https://maps.app.goo.gl/qi9kHQsVh9YmVBBt8" target="_blank" class="map-link">吉田線五合目</a>，先前往 <a href="https://www.google.com/maps/search/?api=1&query=富士山五合目+総合管理センター" target="_blank" class="map-link">富士山五合目 総合管理センター</a> (06:00–18:00) 辦理入山手續並出示 QR Code <b>領取實體通行木牌</b>！<br>
                                 參拜 <a href="https://www.google.com/maps/search/?api=1&query=冨士山小御嶽神社" target="_blank" class="map-link">冨士山小御嶽神社</a> 蓋御朱印與購買金剛杖。
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">08:30</td>
-                            <td><strong>起登！(08:30 出發)</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">08:30</td>
+                            <td contenteditable="true"><strong>起登！(08:30 出發)</strong></td>
                             <td>
                                 📱 <b>提醒：起登前記得開啟 <a href="https://zh-tw.hikingbook.net/hikes/2026-7-14-15%E5%AF%8C%E5%A3%AB%E5%B1%B1%E5%90%89%E7%94%B0%E7%B7%9A-23fae3f6" target="_blank" class="map-link">Hikingbook 離線地圖</a> 與 Strava 記錄！</b><br>
-                                預計配速時間表（算入每間山屋約 5–10 分鐘燒印/收集御朱印停留時間）：<br>
+                                <span contenteditable="true">預計配速時間表（算入每間山屋約 5–10 分鐘燒印/收集御朱印停留時間）：<br>
                                 • <b>08:30</b> 吉田線五合目起登 (2,305m)<br>
                                 • <b>09:10</b> 六合目安全指導所（停留 10 分鐘，蓋保全協力金章）<br>
                                 • <b>10:10</b> 七合目 花小屋 (2,700m，進入岩場區)<br>
                                 • <b>10:10-12:20</b> 七合目山屋巡禮（花小屋 ➔ 日之出館 ➔ トモエ館 ➔ 鎌岩館 ➔ 富士一館 ➔ 鳥居莊 ➔ 東洋館）<br>
                                 • <b>12:30</b> 八合目 太子館 (3,100m，大休息 20 分鐘吃行動糧)<br>
                                 • <b>12:50-15:30</b> 八合目山屋巡禮（蓬萊館 ➔ 白雲莊 ➔ 元祖室 ➔ 本八合目）<br>
-                                • <b>15:30</b> 抵達 本八合目 トモエ館 (3,400m)
+                                • <b>15:30</b> 抵達 本八合目 トモエ館 (3,400m)</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">15:30/16:00</td>
-                            <td><strong>抵達 トモエ館 Check-in</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">15:30/16:00</td>
+                            <td contenteditable="true"><strong>抵達 トモエ館 Check-in</strong></td>
                             <td>
-                                標高 3,400m 辦理入住！<br>
+                                <span contenteditable="true">標高 3,400m 辦理入住！</span><br>
                                 <button class="modal-trigger-btn" onclick="openModal('tomoekanReserve')">📌 查看 Tomoekan 預約紀錄與訂房信件</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">17:00</td>
-                            <td>晚餐 & 領取早餐</td>
-                            <td>晚餐：漢堡排咖哩飯；領取明日早餐（麵包組+水）</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">17:00</td>
+                            <td contenteditable="true">晚餐 & 領取早餐</td>
+                            <td contenteditable="true">晚餐：漢堡排咖哩飯；領取明日早餐（麵包組+水）</td>
                         </tr>
-                        <tr>
-                            <td class="time">19:00</td>
-                            <td>整理攻頂包 & 熄燈入睡</td>
-                            <td>整理攻頂罐、頭燈、保暖衣物，充沛睡眠</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">19:00</td>
+                            <td contenteditable="true">整理攻頂包 & 熄燈入睡</td>
+                            <td contenteditable="true">整理攻頂罐、頭燈、保暖衣物，充沛睡眠</td>
                         </tr>
                     </tbody>
                 </table>
@@ -496,65 +555,76 @@
         <div class="card">
             <h3 style="color: var(--primary);">📍 Day 3：8/29 (六) 凌晨攻頂日出 ➔ 鉢巡 ➔ 下山逛街 ➔ 新宿中野住宿</h3>
             <div class="table-wrapper">
-                <table>
+                <table id="table-day3">
                     <thead>
                         <tr>
+                            <th style="width: 20px;"></th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="time">01:00</td>
-                            <td><strong>起床整裝 (提前發動)</strong></td>
-                            <td>穿戴保暖層、雨衣頭燈，吃早餐補充熱量與水分</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">01:00</td>
+                            <td contenteditable="true"><strong>起床整裝 (提前發動)</strong></td>
+                            <td contenteditable="true">穿戴保暖層、雨衣頭燈，吃早餐補充熱量與水分</td>
                         </tr>
-                        <tr>
-                            <td class="time">01:30</td>
-                            <td><strong>攻頂戰出發</strong></td>
-                            <td>從本八合目トモエ館隨夜爬人潮陡升，向山頂發進</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">01:30</td>
+                            <td contenteditable="true"><strong>攻頂戰出發</strong></td>
+                            <td contenteditable="true">從本八合目トモエ館隨夜爬人潮陡升，向山頂發進</td>
                         </tr>
-                        <tr>
-                            <td class="time">04:00</td>
-                            <td>登頂 <a href="https://www.google.com/maps/search/?api=1&query=久須志神社" target="_blank" class="map-link">久須志神社</a></td>
-                            <td>卡位等待日出，享用熱濃湯/攻頂罐慶祝</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">04:00</td>
+                            <td contenteditable="true">登頂 <a href="https://www.google.com/maps/search/?api=1&query=久須志神社" target="_blank" class="map-link">久須志神社</a></td>
+                            <td contenteditable="true">卡位等待日出，享用熱濃湯/攻頂罐慶祝</td>
                         </tr>
-                        <tr>
-                            <td class="time">04:30</td>
-                            <td><strong>迎接日出 (御來光) 🌄</strong></td>
-                            <td>富士山頂欣賞絕美御來光、拍照留念</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">04:30</td>
+                            <td contenteditable="true"><strong>迎接日出 (御來光) 🌄</strong></td>
+                            <td contenteditable="true">富士山頂欣賞絕美御來光、拍照留念</td>
                         </tr>
-                        <tr>
-                            <td class="time">05:00</td>
-                            <td>火山口巡禮（鉢巡）</td>
-                            <td>順時針繞火山口一圈（約 1.5 小時），途經金明水與銀明水</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">05:00</td>
+                            <td contenteditable="true">火山口巡禮（鉢巡）</td>
+                            <td contenteditable="true">順時針繞火山口一圈（約 1.5 小時），途經金明水與銀明水</td>
                         </tr>
-                        <tr>
-                            <td class="time">06:00</td>
-                            <td>頂上奧宮參拜</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">06:00</td>
+                            <td contenteditable="true">頂上奧宮參拜</td>
                             <td>參拜 <a href="https://www.google.com/maps/search/?api=1&query=富士山本宮浅間大社+奥宮" target="_blank" class="map-link">富士山本宮淺間大社 奧宮</a>，採集金印御朱印 / 蓋白 T-shirt</td>
                         </tr>
-                        <tr>
-                            <td class="time">07:00-10:30</td>
-                            <td>吉田下山道下山</td>
-                            <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> 走火山砂石坡（砂走）返抵五合目</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">07:00-10:30</td>
+                            <td contenteditable="true">吉田下山道下山</td>
+                            <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> <span contenteditable="true">走火山砂石坡（砂走）返抵五合目</span></td>
                         </tr>
-                        <tr>
-                            <td class="time">10:30-11:30</td>
-                            <td>五合目紀念品店採買</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">10:30-11:30</td>
+                            <td contenteditable="true">五合目紀念品店採買</td>
                             <td>
-                                逛 <a href="https://www.google.com/maps/search/?api=1&query=富士山五合目こみたけ売店" target="_blank" class="map-link">富士山五合目こみたけ売店</a> (08:30–17:00) 採買伴手禮與休息
+                                逛 <a href="https://www.google.com/maps/search/?api=1&query=富士山五合目こみたけ売店" target="_blank" class="map-link">富士山五合目こみたけ売店</a> (08:30–17:00) <span contenteditable="true">採買伴手禮與休息</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">11:30/12:00</td>
-                            <td>搭巴士下山 ➔ 河口湖站</td>
-                            <td>搭乘富士急行登山公車返回河口湖車站 (約 50 分鐘)</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">11:30/12:00</td>
+                            <td contenteditable="true">搭巴士下山 ➔ 河口湖站</td>
+                            <td contenteditable="true">搭乘富士急行登山公車返回河口湖車站 (約 50 分鐘)</td>
                         </tr>
-                        <tr>
-                            <td class="time">12:30-16:30</td>
-                            <td><strong>河口湖站前採買 + 吃布丁</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">12:30-16:30</td>
+                            <td contenteditable="true"><strong>河口湖站前採買 + 吃布丁</strong></td>
                             <td>
                                 1. <b>記得領取寄放的行李！</b><br>
                                 2. 品嚐人氣甜點 <a href="https://www.google.com/maps/search/?api=1&query=Fujisan+Pudding" target="_blank" class="map-link">Fujisan Pudding (富士山ぷりん)</a> (10:00–17:00)<br>
@@ -562,24 +632,27 @@
                                 ⏱️ <b>提早下山時間極度充裕（4 小時時間隨意悠閒逛）</b>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">17:41</td>
-                            <td>搭電車/巴士返回新宿</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">17:41</td>
+                            <td contenteditable="true">搭電車/巴士返回新宿</td>
                             <td>
                                 🌟 <b>主要：</b>搭乘 JR 特急「富士回遊 48號」返京（19:27 抵達新宿）<br>
                                 🚌 <b>備案：</b>若想隨時彈性改搭高速巴士，可開啟 <a href="https://www.highwaybus.com/gp/inbound/inbTimeTbl?lineId=110&upDownKbn=1&action=update&year=2026&month=08&day=29&fromTime=12&toTime=24#direction" target="_blank" class="map-link">8/29 河口湖➔新宿 高速巴士時刻表</a> 隨時查看班次。
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">20:00</td>
-                            <td><strong>Check-in 新宿中野住宿</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">20:00</td>
+                            <td contenteditable="true"><strong>Check-in 新宿中野住宿</strong></td>
                             <td>
                                 前往住宿點 <a href="https://www.google.com/maps/place/Hikario+1st,+2-ch%C5%8Dme-7-11+Yayoich%C5%8D,+Nakano+City,+Tokyo+164-0013%E6%97%A5%E6%9C%AC/@35.6925073,139.6738965,17z/data=!3m1!4b1!4m6!3m5!1s0x6018f2db8d5f79b3:0xaddd9df6ea2d49be!8m2!3d35.6925073!4d139.6764714!16s%2Fg%2F1z44bkqhg?entry=tts&g_ep=EgoyMDI2MDcyNi4wIPu8ASoASAFQAw%3D%3D&skid=ce4ad7a9-80a9-43ae-b664-c41a5c4618a8" target="_blank" class="map-link">Hikario 1st (中野區彌生町)</a> 辦理入住
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">20:30-22:00</td>
-                            <td><strong>夜間超市藥局採買</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">20:30-22:00</td>
+                            <td contenteditable="true"><strong>夜間超市藥局採買</strong></td>
                             <td>
                                 1. <a href="https://www.google.com/maps/search/?api=1&query=マルエツ+中野新橋店" target="_blank" class="map-link">マルエツ 中野新橋店 (Maruetsu)</a> (營業至 01:00)<br>
                                 2. <a href="https://www.google.com/maps/search/?api=1&query=ウエルシア中野新橋店" target="_blank" class="map-link">ウエルシア中野新橋店 (Welcia)</a> (營業至 24:00)
@@ -594,34 +667,37 @@
         <div class="card">
             <h3 style="color: var(--primary);">📍 Day 4：8/30 (日) 市區前往機場 ➔ 成田機場 ➔ 溫暖的家</h3>
             <div class="table-wrapper">
-                <table>
+                <table id="table-day4">
                     <thead>
                         <tr>
+                            <th style="width: 20px;"></th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="time">07:00-09:30</td>
-                            <td>前往成田機場 (NRT)</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">07:00-09:30</td>
+                            <td contenteditable="true">前往成田機場 (NRT)</td>
                             <td>
-                                從新宿/日暮里搭乘 N'EX 或 Skyliner 前往成田機場<br>
+                                <span contenteditable="true">從新宿/日暮里搭乘 N'EX 或 Skyliner 前往成田機場</span><br>
                                 <span class="badge badge-important">⚠️ 務必於 09:30 前抵達成田機場辦理酷航登機！</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="time">09:30-12:30</td>
-                            <td>成田機場 (NRT) 辦理登機</td>
-                            <td>辦理酷航 TR867 託運行李、通關與逛機場免稅店</td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">09:30-12:30</td>
+                            <td contenteditable="true">成田機場 (NRT) 辦理登機</td>
+                            <td contenteditable="true">辦理酷航 TR867 託運行李、通關與逛機場免稅店</td>
                         </tr>
-                        <tr>
-                            <td class="time">12:30-15:10</td>
-                            <td><strong>回程航班：酷航 TR867</strong></td>
+                        <tr draggable="true">
+                            <td class="drag-handle">☰</td>
+                            <td class="time" contenteditable="true">12:30-15:10</td>
+                            <td contenteditable="true"><strong>回程航班：酷航 TR867</strong></td>
                             <td>
-                                成田 (NRT) ➔ 桃園 (TPE) | 座位 20B, 20C<br>
-                                線上報到 | 手提 10kg、託運 20kg<br>
+                                <span contenteditable="true">成田 (NRT) ➔ 桃園 (TPE) | 座位 20B, 20C<br>線上報到 | 手提 10kg、託運 20kg</span><br>
                                 <button class="modal-trigger-btn" onclick="openModal('scoot_baggage')">📌 酷航行李與搭機規定彈窗</button>
                             </td>
                         </tr>
@@ -761,41 +837,6 @@
                 <b>建議班次：</b>Skyliner 15號 (日暮里 07:45 發車 ➔ 成田 08:23 抵達)<br>
                 <b>預估票價：</b>約 2,570 日圓 | <b>連結：</b><a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/" target="_blank" class="map-link">京成 Skyliner 官網</a><br>
                 <b>🔄 Skyliner 前後備案：</b>07:25 發 (08:03 到) / 08:05 發 (08:44 到，每 20 分鐘一班)
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= TAB 3: ACCOMMODATION ================= -->
-    <div id="tab-accommodation" class="tab-content">
-        <h2 class="section-title">🏠 8/27 河口湖住宿與成員分房</h2>
-
-        <div class="card" style="border-left: 4px solid var(--primary);">
-            <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:8px;">🏡 住宿河口湖 Bnb A（共 13 人）</h3>
-            <div style="font-size:0.92rem; line-height:1.7;">
-                <b>👥 入住成員：</b><br>
-                游、游友、采薇、練、少麒、加珮、安淇、璞、香、金子、力文、宇婷GM<br>
-                <b>🔗 Airbnb 預約連結：</b><br>
-                <a href="https://www.airbnb.com.tw/rooms/882060607744613440?unique_share_id=0d109b4a-da0c-49fb-b0f6-8e2572c04f73&viralityEntryPoint=1&s=76" target="_blank" class="map-link">點擊開啟 Airbnb A 房型頁面</a>
-            </div>
-        </div>
-
-        <div class="card" style="border-left: 4px solid var(--secondary);">
-            <h3 style="color:var(--secondary); font-size:1.1rem; margin-bottom:8px;">🏡 住宿河口湖 Bnb B（共 6 人）</h3>
-            <div style="font-size:0.92rem; line-height:1.7;">
-                <b>👥 入住成員：</b><br>
-                安理、安理友、萱、鑫GM<br>
-                <b>🔗 Airbnb 預約連結：</b><br>
-                <a href="https://www.airbnb.com.tw/rooms/45456380?unique_share_id=d8f213eb-0d99-4557-9abe-69c50e5c4b33&viralityEntryPoint=1&s=76&source_impression_id=p3_1785163502_P3ZVA_JdU55qa9Sc" target="_blank" class="map-link">點擊開啟 Airbnb B 房型頁面</a>
-            </div>
-        </div>
-
-        <h2 class="section-title">🏙️ 8/29 新宿中野住宿地點</h2>
-        <div class="card" style="border-left: 4px solid var(--gold);">
-            <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:8px;">🏢 Hikario 1st (中野區彌生町)</h3>
-            <div style="font-size:0.92rem; line-height:1.7;">
-                <b>📍 地址：</b>2-chōme-7-11 Yayoichō, Nakano City, Tokyo 164-0013<br>
-                <b>🔗 Google 地圖導航：</b><br>
-                <a href="https://www.google.com/maps/place/Hikario+1st,+2-ch%C5%8Dme-7-11+Yayoich%C5%8D,+Nakano+City,+Tokyo+164-0013%E6%97%A5%E6%9C%AC/@35.6925073,139.6738965,17z/data=!3m1!4b1!4m6!3m5!1s0x6018f2db8d5f79b3:0xaddd9df6ea2d49be!8m2!3d35.6925073!4d139.6764714!16s%2Fg%2F1z44bkqhg?entry=tts&g_ep=EgoyMDI2MDcyNi4wIPu8ASoASAFQAw%3D%3D&skid=ce4ad7a9-80a9-43ae-b664-c41a5c4618a8" target="_blank" class="map-link">點擊開啟 Hikario 1st Google 地圖</a>
             </div>
         </div>
     </div>
@@ -1040,8 +1081,9 @@
         document.getElementById('customModal').classList.remove('active');
     }
 
-    // Auto save & load Checkbox States to LocalStorage
+    // Drag & Drop + ContentEditable Logic
     document.addEventListener('DOMContentLoaded', () => {
+        // Restore Checkbox state
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(cb => {
             const savedState = localStorage.getItem(cb.id);
@@ -1052,7 +1094,87 @@
                 localStorage.setItem(e.target.id, e.target.checked);
             });
         });
+
+        // Initialize Editable Tables
+        const tables = ['table-day1', 'table-day2', 'table-day3', 'table-day4'];
+        tables.forEach(tableId => {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            const tbody = table.querySelector('tbody');
+
+            // Restore saved table HTML if present
+            const savedTableHtml = localStorage.getItem('fuji_table_' + tableId);
+            if (savedTableHtml) {
+                tbody.innerHTML = savedTableHtml;
+            }
+
+            attachDragAndEditEvents(tbody, tableId);
+        });
     });
+
+    function attachDragAndEditEvents(tbody, tableId) {
+        let draggingRow = null;
+
+        // Auto save on editing contenteditable elements
+        tbody.addEventListener('blur', (e) => {
+            if (e.target.getAttribute('contenteditable') === 'true') {
+                saveTableState(tbody, tableId);
+            }
+        }, true);
+
+        // Attach drag events to rows
+        tbody.querySelectorAll('tr').forEach(row => {
+            row.setAttribute('draggable', 'true');
+
+            row.addEventListener('dragstart', (e) => {
+                draggingRow = row;
+                row.classList.add('dragging');
+            });
+
+            row.addEventListener('dragend', () => {
+                draggingRow = null;
+                row.classList.remove('dragging');
+                saveTableState(tbody, tableId);
+            });
+        });
+
+        tbody.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (!draggingRow) return;
+            const afterElement = getDragAfterElement(tbody, e.clientY);
+            if (afterElement == null) {
+                tbody.appendChild(draggingRow);
+            } else {
+                tbody.insertBefore(draggingRow, afterElement);
+            }
+        });
+    }
+
+    function getDragAfterElement(tbody, y) {
+        const draggableElements = [...tbody.querySelectorAll('tr:not(.dragging)')];
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function saveTableState(tbody, tableId) {
+        localStorage.setItem('fuji_table_' + tableId, tbody.innerHTML);
+    }
+
+    function resetAllTables() {
+        if (confirm('確定要還原所有表格的文字修改與拖曳順序嗎？')) {
+            ['table-day1', 'table-day2', 'table-day3', 'table-day4'].forEach(id => {
+                localStorage.removeItem('fuji_table_' + id);
+            });
+            location.reload();
+        }
+    }
 </script>
 
 </body>
