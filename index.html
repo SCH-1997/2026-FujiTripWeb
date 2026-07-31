@@ -237,7 +237,7 @@
         td.time { font-weight: bold; color: var(--secondary); white-space: nowrap; width: 85px; }
 
         /* Editable & Draggable UX Enhancements */
-        tr[draggable="true"] { cursor: grab; transition: background 0.15s; }
+        tr[draggable="true"] { transition: background 0.15s; }
         tr[draggable="true"]:hover { background-color: #f1f5f9; }
         tr.dragging { opacity: 0.4; background-color: #e2e8f0; border: 2px dashed #94a3b8; }
         td[contenteditable="true"]:focus {
@@ -245,11 +245,50 @@
             background-color: #f0f9ff;
             border-radius: 4px;
         }
+        
         .drag-handle {
-            color: #cbd5e1;
-            font-size: 0.85rem;
-            margin-right: 4px;
+            white-space: nowrap;
+            width: 50px;
+            user-select: none;
+        }
+        .drag-handle .handle {
             cursor: grab;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-right: 4px;
+        }
+        .btn-del {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            padding: 2px;
+        }
+        .btn-del:hover { opacity: 1; transform: scale(1.1); }
+
+        .btn-add-row {
+            background-color: #f1f5f9;
+            color: var(--secondary);
+            border: 1px dashed #cbd5e1;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .btn-add-row:hover {
+            background-color: #e2e8f0;
+            color: var(--primary);
+            border-color: var(--secondary);
         }
 
         .badge { display: inline-block; background: #edf2f7; color: #4a5568; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; margin-top: 4px; }
@@ -329,11 +368,12 @@
     <!-- ================= TAB 1: RUNDOWN ================= -->
     <div id="tab-rundown" class="tab-content active">
         <div class="callout">
-            💡 <strong>行前重點備忘（表格內文字可直接點擊編輯、整行可按住拖曳排序）：</strong><br>
-            • 去程虎航 IT216 (00:10-04:25) / 回程酷航 TR867 (12:30-15:10)。<br>
-            • <b>Day 2 06:30</b> 河口湖寄行李，<b>08:30 五合目起登</b>，預計 15:30 抵達本八合目 Tomoekan。<br>
-            • <b>Day 3 01:00</b> 起床整裝，01:30 提前啟動攻頂戰，下山後時間更充裕！<br>
-            • <b>Day 4</b> 務必於 <b>09:30 前抵達成田機場 (NRT)</b> 辦理登機。
+            💡 <strong>行程動態編輯指南：</strong><br>
+            • <b>編輯文字</b>：直接點擊表格內的「時間、項目或說明」即可打字修改。<br>
+            • <b>新增行程</b>：點擊每個表格底部的「➕ 新增行程」按鈕可插入新行程。<br>
+            • <b>刪除行程</b>：點擊左側「🗑️」圖示可刪除該列。<br>
+            • <b>拖曳排序</b>：按住左側「☰」圖示上下拖動可調整先後順序。<br>
+            • 所有變更都會<b>即時自動儲存</b>，想恢復預設可點擊頂端「↺ 還原初始行程」。
         </div>
 
         <!-- Day 1 -->
@@ -343,7 +383,7 @@
                 <table id="table-day1">
                     <thead>
                         <tr>
-                            <th style="width: 20px;"></th>
+                            <th style="width: 50px;">操作</th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
@@ -351,7 +391,7 @@
                     </thead>
                     <tbody>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">00:10-04:25</td>
                             <td contenteditable="true"><strong>去程航班：虎航 IT216</strong></td>
                             <td>
@@ -360,13 +400,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">04:25-06:00</td>
                             <td contenteditable="true">羽田 ➔ <a href="https://www.google.com/maps/search/?api=1&query=JR+上野站" target="_blank" class="map-link">JR 上野站</a></td>
                             <td contenteditable="true">入境後搭電車前往上野，將大件行李寄放至車站 Coin Locker</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">07:00</td>
                             <td contenteditable="true"><strong>晨間早餐</strong></td>
                             <td>
@@ -381,7 +421,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">08:30-10:30</td>
                             <td contenteditable="true"><strong>御徒町採購逛街</strong></td>
                             <td>
@@ -391,13 +431,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">10:30</td>
                             <td contenteditable="true"><strong>點心小嚐</strong></td>
                             <td><a href="https://www.google.com/maps/search/?api=1&query=名代秘伝の味+大阪じゅげむ+上野御徒町店" target="_blank" class="map-link">名代秘伝の味 大阪じゅげむ 上野御徒町店</a> (11:00–22:30) | 道地章魚燒蝦餅（たこせん）</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">11:30</td>
                             <td contenteditable="true"><strong>午餐饗宴</strong></td>
                             <td>
@@ -425,13 +465,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">12:45</td>
                             <td contenteditable="true">前往新宿</td>
                             <td contenteditable="true">搭乘 JR 山手線（上野 ➔ 新宿，約 25 分鐘）</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">13:30-14:40</td>
                             <td contenteditable="true"><strong>新宿熱門購物</strong></td>
                             <td>
@@ -440,7 +480,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">14:45</td>
                             <td contenteditable="true">前往巴士總站</td>
                             <td>
@@ -449,7 +489,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">15:15</td>
                             <td contenteditable="true"><strong>搭乘高速巴士 (15:15 發車)</strong></td>
                             <td>
@@ -458,7 +498,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">18:00</td>
                             <td contenteditable="true"><strong>河口湖 Check-in</strong></td>
                             <td>
@@ -469,6 +509,7 @@
                     </tbody>
                 </table>
             </div>
+            <button class="btn-add-row" onclick="addRow('table-day1')">➕ 新增 Day 1 行程</button>
         </div>
 
         <!-- Day 2 -->
@@ -478,7 +519,7 @@
                 <table id="table-day2">
                     <thead>
                         <tr>
-                            <th style="width: 20px;"></th>
+                            <th style="width: 50px;">操作</th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
@@ -486,7 +527,7 @@
                     </thead>
                     <tbody>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">06:30</td>
                             <td contenteditable="true">起床 & 寄放行李</td>
                             <td>
@@ -495,13 +536,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">07:00-07:50</td>
                             <td contenteditable="true">搭巴士前往 5 合目</td>
                             <td>從 <a href="https://maps.app.goo.gl/RmG7ko1nheqWELKK9" target="_blank" class="map-link">河口湖站 6號月台</a> 搭乘 07:00 或 07:30 登山巴士前往五合目 (約 50 分鐘)</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">08:00-08:30</td>
                             <td contenteditable="true">辦理入山 & 領取木牌</td>
                             <td>
@@ -510,7 +551,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">08:30</td>
                             <td contenteditable="true"><strong>起登！(08:30 出發)</strong></td>
                             <td>
@@ -526,7 +567,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">15:30/16:00</td>
                             <td contenteditable="true"><strong>抵達 トモエ館 Check-in</strong></td>
                             <td>
@@ -535,13 +576,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">17:00</td>
                             <td contenteditable="true">晚餐 & 領取早餐</td>
                             <td contenteditable="true">晚餐：漢堡排咖哩飯；領取明日早餐（麵包組+水）</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">19:00</td>
                             <td contenteditable="true">整理攻頂包 & 熄燈入睡</td>
                             <td contenteditable="true">整理攻頂罐、頭燈、保暖衣物，充沛睡眠</td>
@@ -549,6 +590,7 @@
                     </tbody>
                 </table>
             </div>
+            <button class="btn-add-row" onclick="addRow('table-day2')">➕ 新增 Day 2 行程</button>
         </div>
 
         <!-- Day 3 -->
@@ -558,7 +600,7 @@
                 <table id="table-day3">
                     <thead>
                         <tr>
-                            <th style="width: 20px;"></th>
+                            <th style="width: 50px;">操作</th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
@@ -566,49 +608,49 @@
                     </thead>
                     <tbody>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">01:00</td>
                             <td contenteditable="true"><strong>起床整裝 (提前發動)</strong></td>
                             <td contenteditable="true">穿戴保暖層、雨衣頭燈，吃早餐補充熱量與水分</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">01:30</td>
                             <td contenteditable="true"><strong>攻頂戰出發</strong></td>
                             <td contenteditable="true">從本八合目トモエ館隨夜爬人潮陡升，向山頂發進</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">04:00</td>
                             <td contenteditable="true">登頂 <a href="https://www.google.com/maps/search/?api=1&query=久須志神社" target="_blank" class="map-link">久須志神社</a></td>
                             <td contenteditable="true">卡位等待日出，享用熱濃湯/攻頂罐慶祝</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">04:30</td>
                             <td contenteditable="true"><strong>迎接日出 (御來光) 🌄</strong></td>
                             <td contenteditable="true">富士山頂欣賞絕美御來光、拍照留念</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">05:00</td>
                             <td contenteditable="true">火山口巡禮（鉢巡）</td>
                             <td contenteditable="true">順時針繞火山口一圈（約 1.5 小時），途經金明水與銀明水</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">06:00</td>
                             <td contenteditable="true">頂上奧宮參拜</td>
                             <td>參拜 <a href="https://www.google.com/maps/search/?api=1&query=富士山本宮浅間大社+奥宮" target="_blank" class="map-link">富士山本宮淺間大社 奧宮</a>，採集金印御朱印 / 蓋白 T-shirt</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">07:00-10:30</td>
                             <td contenteditable="true">吉田下山道下山</td>
                             <td><span class="badge badge-important">戴上防砂腳套 & 魔術頭巾</span> <span contenteditable="true">走火山砂石坡（砂走）返抵五合目</span></td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">10:30-11:30</td>
                             <td contenteditable="true">五合目紀念品店採買</td>
                             <td>
@@ -616,13 +658,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">11:30/12:00</td>
                             <td contenteditable="true">搭巴士下山 ➔ 河口湖站</td>
                             <td contenteditable="true">搭乘富士急行登山公車返回河口湖車站 (約 50 分鐘)</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">12:30-16:30</td>
                             <td contenteditable="true"><strong>河口湖站前採買 + 吃布丁</strong></td>
                             <td>
@@ -633,7 +675,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">17:41</td>
                             <td contenteditable="true">搭電車/巴士返回新宿</td>
                             <td>
@@ -642,7 +684,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">20:00</td>
                             <td contenteditable="true"><strong>Check-in 新宿中野住宿</strong></td>
                             <td>
@@ -650,7 +692,7 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">20:30-22:00</td>
                             <td contenteditable="true"><strong>夜間超市藥局採買</strong></td>
                             <td>
@@ -661,6 +703,7 @@
                     </tbody>
                 </table>
             </div>
+            <button class="btn-add-row" onclick="addRow('table-day3')">➕ 新增 Day 3 行程</button>
         </div>
 
         <!-- Day 4 -->
@@ -670,7 +713,7 @@
                 <table id="table-day4">
                     <thead>
                         <tr>
-                            <th style="width: 20px;"></th>
+                            <th style="width: 50px;">操作</th>
                             <th>時間</th>
                             <th>行程項目</th>
                             <th>詳細說明 / 導航與注意事項</th>
@@ -678,7 +721,7 @@
                     </thead>
                     <tbody>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">07:00-09:30</td>
                             <td contenteditable="true">前往成田機場 (NRT)</td>
                             <td>
@@ -687,13 +730,13 @@
                             </td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">09:30-12:30</td>
                             <td contenteditable="true">成田機場 (NRT) 辦理登機</td>
                             <td contenteditable="true">辦理酷航 TR867 託運行李、通關與逛機場免稅店</td>
                         </tr>
                         <tr draggable="true">
-                            <td class="drag-handle">☰</td>
+                            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
                             <td class="time" contenteditable="true">12:30-15:10</td>
                             <td contenteditable="true"><strong>回程航班：酷航 TR867</strong></td>
                             <td>
@@ -704,6 +747,7 @@
                     </tbody>
                 </table>
             </div>
+            <button class="btn-add-row" onclick="addRow('table-day4')">➕ 新增 Day 4 行程</button>
         </div>
     </div>
 
@@ -1081,7 +1125,7 @@
         document.getElementById('customModal').classList.remove('active');
     }
 
-    // Drag & Drop + ContentEditable Logic
+    // App Initialization
     document.addEventListener('DOMContentLoaded', () => {
         // Restore Checkbox state
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -1112,32 +1156,18 @@
         });
     });
 
+    // Attach Drag and Edit Event Listeners to Table
     function attachDragAndEditEvents(tbody, tableId) {
         let draggingRow = null;
 
-        // Auto save on editing contenteditable elements
+        // Auto save on text editing
         tbody.addEventListener('blur', (e) => {
             if (e.target.getAttribute('contenteditable') === 'true') {
                 saveTableState(tbody, tableId);
             }
         }, true);
 
-        // Attach drag events to rows
-        tbody.querySelectorAll('tr').forEach(row => {
-            row.setAttribute('draggable', 'true');
-
-            row.addEventListener('dragstart', (e) => {
-                draggingRow = row;
-                row.classList.add('dragging');
-            });
-
-            row.addEventListener('dragend', () => {
-                draggingRow = null;
-                row.classList.remove('dragging');
-                saveTableState(tbody, tableId);
-            });
-        });
-
+        // Dragover logic
         tbody.addEventListener('dragover', (e) => {
             e.preventDefault();
             if (!draggingRow) return;
@@ -1147,6 +1177,23 @@
             } else {
                 tbody.insertBefore(draggingRow, afterElement);
             }
+        });
+
+        // Bind events to each row
+        tbody.querySelectorAll('tr').forEach(row => {
+            bindRowDragEvents(row, tbody, tableId);
+        });
+    }
+
+    function bindRowDragEvents(row, tbody, tableId) {
+        row.setAttribute('draggable', 'true');
+        row.addEventListener('dragstart', () => {
+            row.classList.add('dragging');
+        });
+
+        row.addEventListener('dragend', () => {
+            row.classList.remove('dragging');
+            saveTableState(tbody, tableId);
         });
     }
 
@@ -1163,12 +1210,44 @@
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
+    // Add New Row
+    function addRow(tableId) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        const newTr = document.createElement('tr');
+        
+        newTr.innerHTML = `
+            <td class="drag-handle"><span class="handle">☰</span><button class="btn-del" onclick="deleteRow(this)" title="刪除此行">🗑️</button></td>
+            <td class="time" contenteditable="true">12:00</td>
+            <td contenteditable="true"><strong>新行程項目</strong></td>
+            <td contenteditable="true">點擊此處輸入詳細說明與注意事項...</td>
+        `;
+
+        tbody.appendChild(newTr);
+        bindRowDragEvents(newTr, tbody, tableId);
+        saveTableState(tbody, tableId);
+    }
+
+    // Delete Row
+    function deleteRow(btn) {
+        const tr = btn.closest('tr');
+        const tbody = tr.closest('tbody');
+        const table = tr.closest('table');
+        if (confirm('確定要刪除這筆行程嗎？')) {
+            tr.remove();
+            saveTableState(tbody, table.id);
+        }
+    }
+
+    // Save Table State to LocalStorage
     function saveTableState(tbody, tableId) {
         localStorage.setItem('fuji_table_' + tableId, tbody.innerHTML);
     }
 
+    // Reset All Tables
     function resetAllTables() {
-        if (confirm('確定要還原所有表格的文字修改與拖曳順序嗎？')) {
+        if (confirm('確定要還原所有表格的修改（恢復為原始預設行程）嗎？')) {
             ['table-day1', 'table-day2', 'table-day3', 'table-day4'].forEach(id => {
                 localStorage.removeItem('fuji_table_' + id);
             });
